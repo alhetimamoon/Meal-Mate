@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- setting the status bar to translucent -->
+        <item name="android:windowTranslucentStatus" >true</item>
+
+    </style>
+
+</resources>
