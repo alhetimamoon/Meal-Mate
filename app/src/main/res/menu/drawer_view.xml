@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:icon="@drawable/ic_action"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/calc"
+            android:title="Calculator" />
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:icon="@drawable/recipe"
+            android:title="Recipe Book" />
+        <item
+            android:id="@+id/nav_fourth_fragment"
+            android:icon="@drawable/stats"
+            android:title="Stats" />
+        <item
+            android:id="@+id/nav_fifth_fragment"
+            android:icon="@drawable/add_recipe"
+            android:title="Add recipe" />
+    </group>
+</menu>
