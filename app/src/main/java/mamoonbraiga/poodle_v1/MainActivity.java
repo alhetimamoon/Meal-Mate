@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
         return new ActionBarDrawerToggle(this,mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(final NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
                         selectDrawerItem(menuItem);
                         return true;
                     }
@@ -59,13 +61,22 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch (menuItem.getItemId()){
             case R.id.nav_first_fragment:
-                fragmentClass = ProfileActivity.class;
+                fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = Recipe.class;
+                fragmentClass = CalculatorFragment.class;
+                break;
+            case R.id.nav_third_fragment:
+                fragmentClass = RecipeBookFragment.class;
+                break;
+            case R.id.nav_fourth_fragment:
+                fragmentClass = StatsFragment.class;
+                break;
+            case R.id.nav_fifth_fragment:
+                fragmentClass = RecipeFragment.class;
                 break;
             default:
-                fragmentClass = ProfileActivity.class;
+                fragmentClass = RecipeBookFragment.class;
         }
 
         try{
@@ -76,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
 
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Make sure this is the method with just `Bundle` as the signature
-    //sync the state of the drawer 
+    //sync the state of the drawer
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

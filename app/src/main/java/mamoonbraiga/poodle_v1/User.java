@@ -9,10 +9,10 @@ public class User {
 
     private String name;
     private String email;
-    private List<Recipe> recipes;
+    private List<RecipeFragment> recipeFragments;
 
-    public User(List<Recipe> recipes, String email, String name) {
-        this.recipes = recipes;
+    public User(List<RecipeFragment> recipeFragments, String email, String name) {
+        this.recipeFragments = recipeFragments;
         this.email = email;
         this.name = name;
     }
@@ -25,8 +25,8 @@ public class User {
         return email;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
+    public List<RecipeFragment> getRecipeFragments() {
+        return recipeFragments;
     }
 
 }
