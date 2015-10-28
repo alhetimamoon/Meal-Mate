@@ -14,6 +14,6 @@ import mamoonbraiga.poodle_v3.R;
 /**
  * Created by MamoonBraiga on 2015-10-16.
  */
-public class RecipeBookFragment extends Fragment{
+public class FragmentRecipeBook extends Fragment{
 
 }

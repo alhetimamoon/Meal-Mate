@@ -9,16 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import mamoonbraiga.poodle_v3.R;
 
 /**
  * Created by MamoonBraiga on 2015-10-25.
  */
-public class CalculatorFragment extends Fragment implements View.OnClickListener{
+public class FragmentCalculator extends Fragment implements View.OnClickListener{
 
         private Button bmrButton;
         private TextView bmrValue;
@@ -26,14 +23,14 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         private int bmr = 0;
 
         public Fragment newInstance(Context context) {
-            CalculatorFragment f = new CalculatorFragment();
+            FragmentCalculator f = new FragmentCalculator();
 
             return f;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-            ViewGroup root = (ViewGroup) inflater.inflate(R.layout.calculator_layout, null);
+            ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_calculator, null);
             intit(root);
             return root;
         }

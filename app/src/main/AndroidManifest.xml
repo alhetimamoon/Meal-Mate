@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="mamoonbraiga.poodle_v1.RecipeBookFragment"/>
+        <activity android:name="mamoonbraiga.poodle_v1.FragmentRecipeBook"/>
     </application>
 
 </manifest>

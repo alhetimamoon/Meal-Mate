@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -61,22 +60,22 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch (menuItem.getItemId()){
             case R.id.nav_first_fragment:
-                fragmentClass = ProfileFragment.class;
+                fragmentClass = FragmentProfile.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = CalculatorFragment.class;
+                fragmentClass = FragmentCalculator.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = RecipeBookFragment.class;
+                fragmentClass = FragmentRecipeBook.class;
                 break;
             case R.id.nav_fourth_fragment:
-                fragmentClass = StatsFragment.class;
+                fragmentClass = FragmentStats.class;
                 break;
             case R.id.nav_fifth_fragment:
-                fragmentClass = RecipeFragment.class;
+                fragmentClass = FragmentAddRecipe.class;
                 break;
             default:
-                fragmentClass = RecipeBookFragment.class;
+                fragmentClass = FragmentRecipeBook.class;
         }
 
         try{
