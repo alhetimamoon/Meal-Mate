@@ -11,12 +11,8 @@ public class Recipe {
     protected static ImageView image;
     protected static String description;
 
-    public void Recipe(String title, ImageView image, String description){
-
-        this.title = title;
+    public void Recipe(){
         this.image.setImageResource(R.drawable.pasta);
-        this.description = description;
-
 
     }
 

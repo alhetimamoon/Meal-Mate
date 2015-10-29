@@ -22,7 +22,7 @@ public class FragmentRecipeBook extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        //inflate the layout for this fragment 
+        //inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_book, container, false);
         RecyclerView reList = (RecyclerView) view.findViewById(R.id.listRecipes);
         reList.setHasFixedSize(true);
@@ -30,20 +30,21 @@ public class FragmentRecipeBook extends Fragment{
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         reList.setLayoutManager(llm);
 
-        AdapterRecipeBook adapterRecipeBook = new AdapterRecipeBook(createList(3));
+        AdapterRecipeBook adapterRecipeBook = new AdapterRecipeBook(createList(7));
         reList.setAdapter(adapterRecipeBook);
         return view;
     }
 
     private List<Recipe> createList(int size) {
         List<Recipe> recipes = new ArrayList<>();
-        for (int i=0; i<=size; i++){
+        for (int i=0; i<=size; i++) {
+
             Recipe recipe = new Recipe();
-            recipe.setTitle("Healthy Pasta");
-            recipe.setDescription("Heat a large skillet over medium-high heat. Add ¼ cup water and 1½ pounds trimmed, halved Brussels sprouts to pan; cover and cook 5 minutes. Add 2\n" +
-                    "            tablespoons unsalted butter, ¼ teaspoon kosher salt, and ¼ teaspoon freshly ground black pepper to pan; cook, uncovered, 2 minutes. Increase heat to high;\n" +
-                    "            cook 1 minute, stirring frequently. Stir in 1 teaspoon grated lemon rind and 1 tablespoon fresh lemon juice. SERVES 6 (serving size: about 2/3 cup) CALORIES 84;\n" +
-                    "            FAT 4.2g (sat 2.5g); SODIUM 109mg");
+            recipe.setTitle("Farfalle with Butternut Squash");
+            recipe.setDescription("Heat a large skillet over medium-high heat. Add ¼ cup water and 1½ pounds trimmed, halved Brussels sprouts to pan; " +
+                    "cover and cook 5 minutes. Add 2 tablespoons unsalted butter, ¼ teaspoon kosher salt, and ¼ teaspoon freshly ground black pepper to pan; " +
+                    "cook, uncovered, 2 minutes. Increase heat to high; cook 1 minute, stirring frequently. Stir in 1 teaspoon grated lemon rind and 1 tablespoon fresh lemon ");
+            recipes.add(recipe);
         }
         return recipes;
     }

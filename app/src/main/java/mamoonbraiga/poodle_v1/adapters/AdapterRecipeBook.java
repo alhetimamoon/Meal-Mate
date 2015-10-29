@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import mamoonbraiga.poodle_v1.extras.Recipe;
@@ -19,8 +19,7 @@ import mamoonbraiga.poodle_v3.R;
  */
 public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.ViewHolderRecipeBook> {
 
-    private List<Recipe> recipes = new ArrayList<>();
-    private LayoutInflater layoutInflater;
+    private List<Recipe> recipes;
     public AdapterRecipeBook(List<Recipe> recipes){
         this.recipes = recipes;
     }
@@ -28,7 +27,7 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
     @Override
     public ViewHolderRecipeBook onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = layoutInflater.inflate(R.layout.fragment_recipe_book, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_layout, parent, false);
         ViewHolderRecipeBook viewHolder = new ViewHolderRecipeBook(view);
 
         return viewHolder;
@@ -41,10 +40,10 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
      */
     @Override
     public void onBindViewHolder(AdapterRecipeBook.ViewHolderRecipeBook holder, int position) {
-        Recipe recipe = new Recipe();
-        ViewHolderRecipeBook.recipeTitle.setText(recipe.getTitle());
-        ViewHolderRecipeBook.recipeDescription.setText(recipe.getDescription());
-        ViewHolderRecipeBook.recipeThumbnail.setImageResource(R.drawable.pasta);
+        Recipe recipe = recipes.get(position);
+
+        ViewHolderRecipeBook.title.setText(recipe.getTitle());
+        ViewHolderRecipeBook.description.setText(recipe.getDescription());
 
     }
 
@@ -58,15 +57,19 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
          * This class is used to hold the references to UI compnents for each recipe
          * use this when connecting to the database using JSON
          */
-        protected static ImageView recipeThumbnail;
-        protected static TextView recipeTitle;
-        protected static TextView recipeDescription;
+        protected static ImageView image;
+        protected static TextView title;
+        protected static TextView description;
 
-        public ViewHolderRecipeBook(View itemView) {
-            super(itemView);
-            recipeThumbnail = (ImageView) itemView.findViewById(R.id.recipeThumbnail);
-            recipeTitle = (TextView) itemView.findViewById(R.id.recipeTitle);
-            recipeDescription = (TextView) itemView.findViewById(R.id.recipeDescription);
+
+        public ViewHolderRecipeBook(View v) {
+            super(v);
+
+            title = (TextView) v.findViewById(R.id.recipeTitle);
+            description = (TextView) v.findViewById(R.id.recipeDescription);
+            image = (ImageView) v.findViewById(R.id.recipeThumbnail);
+
+
         }
     }
 }
