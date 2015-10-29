@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ColorPrimary">#BC597B</color>
-    <color name="ColorPrimaryDark">#964762</color>
+    <color name="ColorPrimary">#7CB342</color>
+    <color name="ColorPrimaryDark">#689F38</color>
     <color name="NavigationDrawerTextColor">#101010</color>>
-    <color name="navigation_view_color_set" >#BC597B</color>>
-    <color name="grey">#E3E3E3</color>>
+    <color name="grey">#757575</color>>
     <color name="white">#FFFFFF</color>
 </resources>
