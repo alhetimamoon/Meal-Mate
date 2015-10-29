@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1;
+package mamoonbraiga.poodle_v1.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -11,6 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import mamoonbraiga.poodle_v1.fragments.FragmentAddRecipe;
+import mamoonbraiga.poodle_v1.fragments.FragmentCalculator;
+import mamoonbraiga.poodle_v1.fragments.FragmentProfile;
+import mamoonbraiga.poodle_v1.fragments.FragmentRecipeBook;
+import mamoonbraiga.poodle_v1.fragments.FragmentStats;
 import mamoonbraiga.poodle_v3.R;
 
 public class MainActivity extends AppCompatActivity {

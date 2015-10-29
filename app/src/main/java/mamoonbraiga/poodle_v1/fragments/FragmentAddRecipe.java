@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1;
+package mamoonbraiga.poodle_v1.fragments;
 
 import android.app.Fragment;
 

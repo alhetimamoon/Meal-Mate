@@ -1,6 +1,8 @@
-package mamoonbraiga.poodle_v1;
+package mamoonbraiga.poodle_v1.extras;
 
 import java.util.List;
+
+import mamoonbraiga.poodle_v1.fragments.FragmentAddRecipe;
 
 /**
  * Created by MamoonBraiga on 2015-10-16.
