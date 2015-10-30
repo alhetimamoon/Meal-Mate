@@ -1,12 +1,18 @@
 package mamoonbraiga.poodle_v1.fragments;
 
 import android.app.Fragment;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 import mamoonbraiga.poodle_v1.adapters.AdapterRecipeBook;
@@ -32,6 +38,29 @@ public class FragmentRecipeBook extends Fragment{
 
         AdapterRecipeBook adapterRecipeBook = new AdapterRecipeBook(createList(7));
         reList.setAdapter(adapterRecipeBook);
+
+        /** Floating Action Button **/
+        ImageView options = new ImageView(getActivity());
+        options.setImageResource(R.drawable.ic_food_variant_grey600_48dp);
+        com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton actionButton = new com.oguzdev.circularfloatingactionmenu.
+                library.FloatingActionButton.Builder(getActivity()).setContentView(options).build();
+
+        ImageView searchIcon = new ImageView(getActivity());
+        searchIcon.setImageResource(R.drawable.ic_magnify_grey600_48dp);
+
+        ImageView addIcon = new ImageView(getActivity());
+        addIcon.setImageResource(R.drawable.add_recipe);
+
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
+
+        SubActionButton searchButton = itemBuilder.setContentView(searchIcon).build();
+        SubActionButton addButton = itemBuilder.setContentView(addIcon).build();
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(getActivity()).addSubActionView(searchButton).addSubActionView(addButton).attachTo(options).build();
+
+        /** Floating Action Button **/
+
+
         return view;
     }
 
