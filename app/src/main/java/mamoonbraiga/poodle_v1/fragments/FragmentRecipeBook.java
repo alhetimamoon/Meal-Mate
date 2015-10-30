@@ -24,6 +24,10 @@ import mamoonbraiga.poodle_v3.R;
  * Created by MamoonBraiga on 2015-10-16.
  */
 public class FragmentRecipeBook extends Fragment{
+    FloatingActionMenu actionMenu;
+    private com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton actionButton;
+    private SubActionButton searchButton;
+    private SubActionButton addButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -42,7 +46,7 @@ public class FragmentRecipeBook extends Fragment{
         /** Floating Action Button **/
         ImageView options = new ImageView(getActivity());
         options.setImageResource(R.drawable.ic_food_variant_grey600_48dp);
-        com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton actionButton = new com.oguzdev.circularfloatingactionmenu.
+        actionButton = new com.oguzdev.circularfloatingactionmenu.
                 library.FloatingActionButton.Builder(getActivity()).setContentView(options).build();
 
         ImageView searchIcon = new ImageView(getActivity());
@@ -53,17 +57,23 @@ public class FragmentRecipeBook extends Fragment{
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
 
-        SubActionButton searchButton = itemBuilder.setContentView(searchIcon).build();
-        SubActionButton addButton = itemBuilder.setContentView(addIcon).build();
+        searchButton = itemBuilder.setContentView(searchIcon).build();
+        addButton = itemBuilder.setContentView(addIcon).build();
 
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(getActivity()).addSubActionView(searchButton).addSubActionView(addButton).attachTo(options).build();
+        actionMenu = new FloatingActionMenu.Builder(getActivity()).addSubActionView(searchButton).addSubActionView(addButton).attachTo(options).build();
 
         /** Floating Action Button **/
 
 
         return view;
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        actionButton.detach();
+        actionMenu.close(true);
 
+    }
     private List<Recipe> createList(int size) {
         List<Recipe> recipes = new ArrayList<>();
         for (int i=0; i<=size; i++) {
