@@ -2,5 +2,15 @@
     <string name="app_name">Poodle-V3</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="activity_level_array">
+        <item>1</item>
+        <item>2</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>

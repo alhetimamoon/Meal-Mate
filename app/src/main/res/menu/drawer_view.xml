@@ -8,7 +8,7 @@
         <item
             android:id="@+id/nav_second_fragment"
             android:icon="@drawable/calc"
-            android:title="Calculator" />
+            android:title="Macro Calculator" />
         <item
             android:id="@+id/nav_third_fragment"
             android:icon="@drawable/recipe"

@@ -1,74 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/grey"
+
     android:weightSum="1"
     android:id="@+id/calculator_fragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Weight"
-        android:textColor="@color/NavigationDrawerTextColor"
-        android:id="@+id/weightText"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="wrap_content"
+        android:padding="24dp"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingRight="?android:attr/listPreferredItemPaddingRight">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:gravity="center"
-        android:textColor="@color/NavigationDrawerTextColor"
-        android:ems="10"
-        android:id="@+id/eWeight" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Height"
-        android:textColor="@color/NavigationDrawerTextColor"
-        android:id="@+id/heightText"
-        android:layout_gravity="center_horizontal" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:gravity="center"
-        android:textColor="@color/NavigationDrawerTextColor"
-        android:ems="10"
-        android:id="@+id/eHeight" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Age"
-        android:textColor="@color/NavigationDrawerTextColor"
-        android:id="@+id/ageText"
-        android:layout_gravity="center_horizontal" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:gravity="center"
-        android:textColor="@color/NavigationDrawerTextColor"
-        android:ems="10"
-        android:id="@+id/eAge" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Weight"
+            android:background="@drawable/edit_text_theme"
+            android:inputType="number"
+            android:gravity="center"
+            android:textColor="@color/grey"
+            android:ems="10"
+            android:id="@+id/eWeight" />
+    </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
         android:layout_height="wrap_content"
-        android:text="Calculate"
-        android:id="@+id/bmrButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="wrap_content"
+        android:padding="24dp"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingRight="?android:attr/listPreferredItemPaddingRight">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Height"
+            android:background="@drawable/edit_text_theme"
+            android:textColorHint="@color/ColorPrimary"
+            android:inputType="number"
+            android:gravity="center"
+            android:textColor="@color/grey"
+            android:ems="10"
+            android:id="@+id/eHeight" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:padding="24dp"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingRight="?android:attr/listPreferredItemPaddingRight">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Age"
+            android:background="@drawable/edit_text_theme"
+            android:inputType="number"
+            android:gravity="center"
+            android:textColor="@color/grey"
+            android:ems="10"
+            android:id="@+id/eAge" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/bmrValue"
-        android:textColor="@color/NavigationDrawerTextColor"
+        android:textColor="@color/grey"
         android:layout_gravity="center_horizontal" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:background="@color/grey"
+        android:backgroundTint="@color/grey"
+        android:id="@+id/spinner" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="71dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/grey"
+        android:backgroundTint="@color/grey"
+        android:id="@+id/spinner2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:background="@color/ColorPrimary"
+        android:text="Calculate"
+        android:id="@+id/bmrButton"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_gravity="right" />
 
 
 </LinearLayout>

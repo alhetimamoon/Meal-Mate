@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import mamoonbraiga.poodle_v3.R;
@@ -21,6 +23,8 @@ public class FragmentCalculator extends Fragment implements View.OnClickListener
         private TextView bmrValue;
         private EditText weight, height, age;
         private int bmr = 0;
+        private Spinner genderSpinner;
+        private Spinner activityLevelSpinner;
 
         public Fragment newInstance(Context context) {
             FragmentCalculator f = new FragmentCalculator();
@@ -31,16 +35,34 @@ public class FragmentCalculator extends Fragment implements View.OnClickListener
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
             ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_calculator, null);
-            intit(root);
+            init(root);
             return root;
         }
-    private void intit(ViewGroup root) {
+    private void init(ViewGroup root) {
+
+        /**setting up the spinners **/
+        genderSpinner = (Spinner) root.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                R.array.gender_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(adapter);
+
+        activityLevelSpinner = (Spinner) root.findViewById(R.id.spinner2);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this.getActivity(),
+                R.array.activity_level_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activityLevelSpinner.setAdapter(adapter2);
+
+        /***/
+
         bmrButton = (Button) root.findViewById(R.id.bmrButton);
         weight = (EditText) root.findViewById(R.id.eWeight);
         height = (EditText) root.findViewById(R.id.eHeight);
         age = (EditText) root.findViewById(R.id.eAge);
+
         bmrValue = (TextView) root.findViewById(R.id.bmrValue);
         bmrButton.setOnClickListener(this);
+
 
     }
 

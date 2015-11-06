@@ -1,7 +1,6 @@
 package mamoonbraiga.poodle_v1.fragments;
 
 import android.app.Fragment;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,7 +47,6 @@ public class FragmentRecipeBook extends Fragment{
         options.setImageResource(R.drawable.ic_food_variant_grey600_48dp);
         actionButton = new com.oguzdev.circularfloatingactionmenu.
                 library.FloatingActionButton.Builder(getActivity()).setContentView(options).build();
-
         ImageView searchIcon = new ImageView(getActivity());
         searchIcon.setImageResource(R.drawable.ic_magnify_grey600_48dp);
 
