@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/grey"
 
     android:weightSum="1"
     android:id="@+id/calculator_fragment">
@@ -19,10 +18,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Weight"
-            android:background="@drawable/edit_text_theme"
             android:inputType="number"
             android:gravity="center"
             android:textColor="@color/grey"
+            android:textColorLink="@color/ColorPrimary"
             android:ems="10"
             android:id="@+id/eWeight" />
     </android.support.design.widget.TextInputLayout>
@@ -38,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Height"
-            android:background="@drawable/edit_text_theme"
             android:textColorHint="@color/ColorPrimary"
             android:inputType="number"
             android:gravity="center"
@@ -58,7 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Age"
-            android:background="@drawable/edit_text_theme"
             android:inputType="number"
             android:gravity="center"
             android:textColor="@color/grey"
@@ -73,6 +70,15 @@
         android:id="@+id/bmrValue"
         android:textColor="@color/grey"
         android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:background="@color/grey"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gender"
+        android:id="@+id/genderTextView" />
 
     <Spinner
         android:layout_width="wrap_content"

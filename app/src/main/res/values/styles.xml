@@ -6,7 +6,7 @@
 
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
-
+        <item name="android:textColorHint">@color/grey</item>
         <!-- Customize your theme here. -->
 
     </style>
