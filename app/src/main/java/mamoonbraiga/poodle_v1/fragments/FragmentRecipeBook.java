@@ -1,5 +1,6 @@
 package mamoonbraiga.poodle_v1.fragments;
 
+import android.app.DownloadManager;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
@@ -27,6 +36,10 @@ public class FragmentRecipeBook extends Fragment{
     private com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton actionButton;
     private SubActionButton searchButton;
     private SubActionButton addButton;
+    private mamoonbraiga.poodle_v1.extras.urlEndPoints urlEndPoints;
+    private Volley volleySingelton;
+    private ImageLoader imageLoader;
+    private RequestQueue requestQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -41,6 +54,26 @@ public class FragmentRecipeBook extends Fragment{
 
         AdapterRecipeBook adapterRecipeBook = new AdapterRecipeBook(createList(7));
         reList.setAdapter(adapterRecipeBook);
+
+
+
+        /**** JSON Request *****/
+        requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest request = new StringRequest(Request.Method.GET, "http://php.net", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity(), "RESPONSE "+response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "ERROR "+error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(request);
+
+        /**** JSON Request *****/
+
 
         /** Floating Action Button **/
         ImageView options = new ImageView(getActivity());
@@ -65,6 +98,7 @@ public class FragmentRecipeBook extends Fragment{
 
         return view;
     }
+
     @Override
     public void onPause(){
         super.onPause();
@@ -85,5 +119,15 @@ public class FragmentRecipeBook extends Fragment{
         }
         return recipes;
     }
+    public String getRequestURL(int limit){
+        return urlEndPoints.URL_RCIPES + urlEndPoints.URL_CHAR_QUESTION + urlEndPoints.URL_PARAM_API
+                + urlEndPoints.URL_AMEPERSAND + urlEndPoints.URL_PARAM_LIMIT + limit;
+    }
+
+    private void sendJsonRequest() {
+        //JsonObjectRequest request =
+    }
+
+
 
 }

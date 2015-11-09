@@ -7,9 +7,14 @@ import android.widget.ImageView;
  */
 public class Recipe {
 
+    protected static int id;
     protected static String title;
     protected static ImageView image;
     protected static String description;
+    protected static int calories;
+    protected static int protein;
+    protected static int carbs;
+    protected static int fat;
 
     public void Recipe(){
         this.image.setImageResource(R.drawable.pasta);
