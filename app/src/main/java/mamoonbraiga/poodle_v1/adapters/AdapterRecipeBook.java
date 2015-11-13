@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+
 import java.util.List;
 
 import mamoonbraiga.poodle_v1.extras.Recipe;
+import mamoonbraiga.poodle_v1.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
 /**
@@ -20,13 +24,16 @@ import mamoonbraiga.poodle_v3.R;
 public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.ViewHolderRecipeBook> {
 
     private List<Recipe> recipes;
+    VolleySingleton volleySingleton;
+    private ImageLoader imageLoader;
     public AdapterRecipeBook(List<Recipe> recipes){
         this.recipes = recipes;
     }
 
     @Override
     public ViewHolderRecipeBook onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        volleySingleton = VolleySingleton.getsInstance();
+        imageLoader = volleySingleton.getImageLoader();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_layout, parent, false);
         ViewHolderRecipeBook viewHolder = new ViewHolderRecipeBook(view);
 
@@ -39,9 +46,25 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
      * @param position the position of the recipe within our data structure
      */
     @Override
-    public void onBindViewHolder(AdapterRecipeBook.ViewHolderRecipeBook holder, int position) {
+    public void onBindViewHolder(final AdapterRecipeBook.ViewHolderRecipeBook holder, int position) {
         Recipe recipe = recipes.get(position);
+        String imageUrl = recipe.getImageUrl();
 
+        if (imageUrl != null){
+
+            imageLoader.get(imageUrl, new ImageLoader.ImageListener() {
+                @Override
+                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                    holder.image.setImageBitmap(response.getBitmap());
+                }
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+
+        }
         ViewHolderRecipeBook.title.setText(recipe.getTitle());
         ViewHolderRecipeBook.description.setText(recipe.getDescription());
 
@@ -60,7 +83,6 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         protected static ImageView image;
         protected static TextView title;
         protected static TextView description;
-
 
         public ViewHolderRecipeBook(View v) {
             super(v);
