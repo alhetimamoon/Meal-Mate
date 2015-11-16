@@ -31,7 +31,7 @@ import static mamoonbraiga.poodle_v1.extras.Keys.RecipeKeys.*;
  */
 public class FragmentRecipeBook extends Fragment{
     private RequestQueue requestQueue;
-    private List<Recipe> recipes = new ArrayList<>();
+    private List<Recipe> recipes;
     private AdapterRecipeBook adapterRecipeBook;
     private RecyclerView reList;
     @Override
@@ -62,29 +62,23 @@ public class FragmentRecipeBook extends Fragment{
         super.onPause();
 
     }
-    private List<Recipe> createList(JSONArray JSONRecipes) {
+    private void createList(JSONArray JSONRecipes) {
+        recipes = new ArrayList<>();
         for (int i=0; i<JSONRecipes.length(); i++){
             Recipe recipe = new Recipe();
             try {
-                Log.i("This is first title: ",(String) JSONRecipes.getJSONObject(i).get(KEY_TITLE));
                 recipe.setTitle((String) JSONRecipes.getJSONObject(i).get(KEY_TITLE));
                 recipe.setDescription((String) JSONRecipes.getJSONObject(i).get(KEY_DECRIPTION));
                 recipe.setImageUrl(JSONRecipes.getJSONObject(i).getString(KEY_IMAGE));
                 recipes.add(recipe);
-                Log.i( (String) JSONRecipes.getJSONObject(i).get(KEY_TITLE), " added");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
-        Log.i(recipes.get(0).getTitle(),"1");
-        Log.i(recipes.get(1).getTitle(),"2");
-        Log.i("size:", String.valueOf(recipes.size()));
-
 
         adapterRecipeBook = new AdapterRecipeBook(recipes);
         reList.setAdapter(adapterRecipeBook);
-        return recipes;
     }
     public String getRequestURL(int limit){
         return "https://meal-mate.herokuapp.com/recipes.json";

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import mamoonbraiga.poodle_v1.extras.Recipe;
@@ -65,8 +67,10 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
             });
 
         }
-        ViewHolderRecipeBook.title.setText(recipe.getTitle());
-        ViewHolderRecipeBook.description.setText(recipe.getDescription());
+        holder.setTitle(recipe.getTitle());
+        holder.setDescription(recipe.getDescription());
+        //ViewHolderRecipeBook.title.setText(recipe.getTitle());
+        //ViewHolderRecipeBook.description.setText(recipe.getDescription());
 
     }
 
@@ -80,9 +84,9 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
          * This class is used to hold the references to UI compnents for each recipe
          * use this when connecting to the database using JSON
          */
-        protected static ImageView image;
-        protected static TextView title;
-        protected static TextView description;
+        private ImageView image;
+        private TextView title;
+        private TextView description;
 
         public ViewHolderRecipeBook(View v) {
             super(v);
@@ -91,7 +95,13 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
             description = (TextView) v.findViewById(R.id.recipeDescription);
             image = (ImageView) v.findViewById(R.id.recipeThumbnail);
 
-
         }
+        public void setTitle(String titleString){
+            this.title.setText(titleString);
+        }
+        public void setDescription(String descriptionString){
+            this.description.setText(descriptionString);
+        }
+
     }
 }
