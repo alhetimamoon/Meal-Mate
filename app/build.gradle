@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "mamoonbraiga.poodle_v3"
+        applicationId "mamoonbraiga.Mealmate"
         minSdkVersion 18
         targetSdkVersion 23
         versionCode 1

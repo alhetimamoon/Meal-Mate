@@ -1,29 +1,26 @@
-package mamoonbraiga.poodle_v1.fragments;
+package mamoonbraiga.MealMate.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
-import mamoonbraiga.poodle_v1.adapters.AdapterRecipeBook;
-import mamoonbraiga.poodle_v1.extras.Recipe;
-import mamoonbraiga.poodle_v1.network.VolleySingleton;
+import mamoonbraiga.MealMate.adapters.AdapterRecipeBook;
+import mamoonbraiga.MealMate.extras.Recipe;
+import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
-import static mamoonbraiga.poodle_v1.extras.Keys.RecipeKeys.*;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.*;
 
 
 /**
@@ -34,6 +31,7 @@ public class FragmentRecipeBook extends Fragment{
     private List<Recipe> recipes;
     private AdapterRecipeBook adapterRecipeBook;
     private RecyclerView reList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 

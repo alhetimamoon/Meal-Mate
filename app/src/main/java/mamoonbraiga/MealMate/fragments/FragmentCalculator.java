@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1.fragments;
+package mamoonbraiga.MealMate.fragments;
 
 import android.app.Fragment;
 import android.content.Context;

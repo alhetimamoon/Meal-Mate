@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1.extras;
+package mamoonbraiga.MealMate.extras;
 import mamoonbraiga.poodle_v3.R;
 import android.widget.ImageView;
 

@@ -1,8 +1,8 @@
-package mamoonbraiga.poodle_v1.extras;
+package mamoonbraiga.MealMate.extras;
 
 import java.util.List;
 
-import mamoonbraiga.poodle_v1.fragments.FragmentAddRecipe;
+import mamoonbraiga.MealMate.fragments.FragmentAddRecipe;
 
 /**
  * Created by MamoonBraiga on 2015-10-16.

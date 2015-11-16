@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1.activities;
+package mamoonbraiga.MealMate.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

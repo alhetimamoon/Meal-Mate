@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1.network;
+package mamoonbraiga.MealMate.network;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -7,7 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-import mamoonbraiga.poodle_v1.extras.MyApplication;
+import mamoonbraiga.MealMate.extras.MyApplication;
 
 /**
  * Created by MamoonBraiga on 2015-11-09.

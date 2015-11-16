@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1.extras;
+package mamoonbraiga.MealMate.extras;
 
 import android.app.Application;
 import android.content.Context;

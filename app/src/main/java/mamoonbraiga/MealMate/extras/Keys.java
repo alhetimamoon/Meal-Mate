@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v1.extras;
+package mamoonbraiga.MealMate.extras;
 
 /**
  * Created by MamoonBraiga on 2015-11-09.

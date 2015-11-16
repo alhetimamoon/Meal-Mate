@@ -1,21 +1,25 @@
-package mamoonbraiga.poodle_v1.adapters;
+package mamoonbraiga.MealMate.adapters;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-import mamoonbraiga.poodle_v1.extras.Recipe;
-import mamoonbraiga.poodle_v1.network.VolleySingleton;
+import mamoonbraiga.MealMate.extras.Recipe;
+import mamoonbraiga.MealMate.fragments.FragmentRecipe;
+import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
 /**
@@ -33,11 +37,33 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
     }
 
     @Override
-    public ViewHolderRecipeBook onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolderRecipeBook onCreateViewHolder(final ViewGroup parent, int viewType) {
         volleySingleton = VolleySingleton.getsInstance();
         imageLoader = volleySingleton.getImageLoader();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout, parent, false);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment = null;
+                Class fragmentClass = FragmentRecipe.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+                ((Activity) parent.getContext()).getFragmentManager().beginTransaction().replace(R.id.flContent, fragment).commit();
+
+                Toast.makeText(v.getContext(), "Click Listener card=" + v.getId(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
         ViewHolderRecipeBook viewHolder = new ViewHolderRecipeBook(view);
+
 
         return viewHolder;
     }
@@ -69,6 +95,7 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         }
         holder.setTitle(recipe.getTitle());
         holder.setDescription(recipe.getDescription());
+
         //ViewHolderRecipeBook.title.setText(recipe.getTitle());
         //ViewHolderRecipeBook.description.setText(recipe.getDescription());
 
