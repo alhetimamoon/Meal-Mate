@@ -1,6 +1,7 @@
 package mamoonbraiga.MealMate.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -106,6 +107,5 @@ public class FragmentRecipeBook extends Fragment{
             e.printStackTrace();
         }
     }
-
 
 }

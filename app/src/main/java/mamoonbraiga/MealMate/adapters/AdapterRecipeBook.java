@@ -3,6 +3,7 @@ package mamoonbraiga.MealMate.adapters;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,8 +56,8 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-
-                ((Activity) parent.getContext()).getFragmentManager().beginTransaction().replace(R.id.flContent, fragment).commit();
+                FragmentTransaction ft = ((Activity) parent.getContext()).getFragmentManager().beginTransaction();
+                ft.replace(R.id.flContent, fragment).addToBackStack("recipe card").commit();
 
                 Toast.makeText(v.getContext(), "Click Listener card=" + v.getId(),
                         Toast.LENGTH_SHORT).show();
