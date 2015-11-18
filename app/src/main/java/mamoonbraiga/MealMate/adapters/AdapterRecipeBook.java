@@ -2,16 +2,13 @@ package mamoonbraiga.MealMate.adapters;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -42,7 +39,6 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         volleySingleton = VolleySingleton.getsInstance();
         imageLoader = volleySingleton.getImageLoader();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout, parent, false);
-
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,15 +52,13 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
+
                 FragmentTransaction ft = ((Activity) parent.getContext()).getFragmentManager().beginTransaction();
                 ft.replace(R.id.flContent, fragment).addToBackStack("recipe card").commit();
 
-                Toast.makeText(v.getContext(), "Click Listener card=" + v.getId(),
-                        Toast.LENGTH_SHORT).show();
             }
         });
         ViewHolderRecipeBook viewHolder = new ViewHolderRecipeBook(view);
-
 
         return viewHolder;
     }
@@ -82,6 +76,7 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         if (imageUrl != null){
 
             imageLoader.get(imageUrl, new ImageLoader.ImageListener() {
+
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                     holder.image.setImageBitmap(response.getBitmap());
@@ -96,9 +91,6 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         }
         holder.setTitle(recipe.getTitle());
         holder.setDescription(recipe.getDescription());
-
-        //ViewHolderRecipeBook.title.setText(recipe.getTitle());
-        //ViewHolderRecipeBook.description.setText(recipe.getDescription());
 
     }
 

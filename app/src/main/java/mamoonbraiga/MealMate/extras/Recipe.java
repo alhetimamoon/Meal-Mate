@@ -1,11 +1,12 @@
 package mamoonbraiga.MealMate.extras;
-import mamoonbraiga.poodle_v3.R;
 import android.widget.ImageView;
+
+import mamoonbraiga.poodle_v3.R;
 
 /**
  * Created by MamoonBraiga on 2015-10-28.
  */
-public class Recipe {
+public class Recipe{
 
     protected  int id;
     protected  String title;
@@ -53,4 +54,13 @@ public class Recipe {
     public  void setImageUrl(String imageUrl) {
         ImageUrl = imageUrl;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

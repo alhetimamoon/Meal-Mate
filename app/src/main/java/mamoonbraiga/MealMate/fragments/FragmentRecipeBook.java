@@ -1,7 +1,6 @@
 package mamoonbraiga.MealMate.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,8 +20,10 @@ import mamoonbraiga.MealMate.adapters.AdapterRecipeBook;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
-import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.*;
 
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_DECRIPTION;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_IMAGE;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
 
 /**
  * Created by MamoonBraiga on 2015-10-16.
@@ -32,6 +33,7 @@ public class FragmentRecipeBook extends Fragment{
     private List<Recipe> recipes;
     private AdapterRecipeBook adapterRecipeBook;
     private RecyclerView reList;
+    Bundle bundle = new Bundle();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -49,9 +51,6 @@ public class FragmentRecipeBook extends Fragment{
         requestQueue = VolleySingleton.getsInstance().getmRequestQueue();
         sendJsonRequest();
         /**** JSON Request *****/
-
-        //AdapterRecipeBook adapterRecipeBook = new AdapterRecipeBook(recipes);
-        //reList.setAdapter(adapterRecipeBook);
 
         return view;
     }
