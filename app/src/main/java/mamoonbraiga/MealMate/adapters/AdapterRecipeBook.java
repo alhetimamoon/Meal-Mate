@@ -1,8 +1,5 @@
 package mamoonbraiga.MealMate.adapters;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +13,6 @@ import com.android.volley.toolbox.ImageLoader;
 import java.util.List;
 
 import mamoonbraiga.MealMate.extras.Recipe;
-import mamoonbraiga.MealMate.fragments.FragmentRecipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
@@ -28,8 +24,20 @@ import mamoonbraiga.poodle_v3.R;
 public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.ViewHolderRecipeBook> {
 
     private List<Recipe> recipes;
-    VolleySingleton volleySingleton;
+    private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
+
+    // Define listener member variable
+    private static OnItemClickListener listener;
+    // Define the listener interface
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public AdapterRecipeBook(List<Recipe> recipes){
         this.recipes = recipes;
     }
@@ -39,25 +47,10 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         volleySingleton = VolleySingleton.getsInstance();
         imageLoader = volleySingleton.getImageLoader();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout, parent, false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Fragment fragment = null;
-                Class fragmentClass = FragmentRecipe.class;
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+        //FragmentTransaction ft = ((Activity) parent.getContext()).getFragmentManager().beginTransaction();
+        //ft.replace(R.id.flContent, fragment).addToBackStack("recipe card").commit();
 
-                FragmentTransaction ft = ((Activity) parent.getContext()).getFragmentManager().beginTransaction();
-                ft.replace(R.id.flContent, fragment).addToBackStack("recipe card").commit();
-
-            }
-        });
         ViewHolderRecipeBook viewHolder = new ViewHolderRecipeBook(view);
 
         return viewHolder;
@@ -89,6 +82,7 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
             });
 
         }
+
         holder.setTitle(recipe.getTitle());
         holder.setDescription(recipe.getDescription());
 
@@ -107,13 +101,21 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         private ImageView image;
         private TextView title;
         private TextView description;
+        private String mItem;
 
         public ViewHolderRecipeBook(View v) {
             super(v);
-
             title = (TextView) v.findViewById(R.id.recipeTitle);
             description = (TextView) v.findViewById(R.id.recipeDescription);
             image = (ImageView) v.findViewById(R.id.recipeThumbnail);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Triggers click upwards to the adapter on click
+                    if (listener != null)
+                        listener.onItemClick(itemView, getLayoutPosition());
+                }
+            });
 
         }
         public void setTitle(String titleString){

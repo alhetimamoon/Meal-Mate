@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import mamoonbraiga.MealMate.fragments.FragmentAddRecipe;
 import mamoonbraiga.MealMate.fragments.FragmentCalculator;
 import mamoonbraiga.MealMate.fragments.FragmentProfile;
@@ -18,11 +19,12 @@ import mamoonbraiga.MealMate.fragments.FragmentRecipeBook;
 import mamoonbraiga.MealMate.fragments.FragmentStats;
 import mamoonbraiga.poodle_v3.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,4 +135,13 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().popBackStack();
         }
     }
+
+    public void saveData(int id, Bundle data){
+        bundle = data;
+    }
+
+    public Bundle getSavedData(){
+        return bundle;
+    }
+
 }

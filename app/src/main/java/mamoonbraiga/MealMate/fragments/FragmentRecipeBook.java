@@ -1,21 +1,27 @@
 package mamoonbraiga.MealMate.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.adapters.AdapterRecipeBook;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
@@ -30,13 +36,13 @@ import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
  */
 public class FragmentRecipeBook extends Fragment{
     private RequestQueue requestQueue;
-    private List<Recipe> recipes;
+    private List<Recipe> recipes = new ArrayList<>();
     private AdapterRecipeBook adapterRecipeBook;
     private RecyclerView reList;
-    Bundle bundle = new Bundle();
-
+    public static int ID=1;
+    Bundle bundle;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         //inflate the layout for this fragment
@@ -47,10 +53,13 @@ public class FragmentRecipeBook extends Fragment{
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         reList.setLayoutManager(llm);
 
+
+
         /**** JSON Request *****/
         requestQueue = VolleySingleton.getsInstance().getmRequestQueue();
         sendJsonRequest();
         /**** JSON Request *****/
+        bundle = new Bundle();
 
         return view;
     }
@@ -72,11 +81,22 @@ public class FragmentRecipeBook extends Fragment{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
         adapterRecipeBook = new AdapterRecipeBook(recipes);
         reList.setAdapter(adapterRecipeBook);
+        adapterRecipeBook.setOnItemClickListener(new AdapterRecipeBook.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                bundle.putParcelable("recipe", recipes.get(position));
+                FragmentRecipe fragmentRecipe = new FragmentRecipe();
+                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
+            }
+        });
+
+        //bundle.putParcelable("recipe", recipes.get(2));
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.saveData(ID, bundle);
     }
     public String getRequestURL(int limit){
         return "https://meal-mate.herokuapp.com/recipes.json";

@@ -16,8 +16,5 @@ public interface Keys {
         public static final String KEY_URL = "url";
         public static final String KEY_IMAGE = "image";
 
-
-
-
     }
 }

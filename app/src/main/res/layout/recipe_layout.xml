@@ -10,9 +10,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
+        android:orientation="vertical"
+        android:id="@+id/fragment_recipe">
+        <ImageView
+            android:id="@+id/recipe_header"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/blueberries"
@@ -21,31 +22,22 @@
             tools:ignore="HardcodedText" />
 
         <TextView
+            android:id="@+id/recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text=" "
+            android:textSize="25sp"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
 
+        <TextView
+            android:id="@+id/recipe_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, Set oven to 400F.
-
- Place the chicken breasts on a baking sheet and season with sea salt pepper. Bake in the oven for about 20 minutes, or until the chicken is completely cooked and the juices from the chicken run clear. Once the chicken has finished cooking, set it aside and allow it to cool.
-
- While the chicken is cooking, mix together the chicken broth and the arrowroot starch together in a bowl. Set it aside.
-
- Set a skillet on medium-high heat and add olive oil. When the skillet is hot, toss in garlic, celery, carrots, onions and butternut squash. Stir the mixture with a spatula and allow the carrots and celery to soften. Cook for about 10 minutes.
-
- Once the chicken breasts have cooled slightly, pull the chicken into pieces and then toss in to the skillet. Add the seasonings and slowly add in the chicken broth and starch mixture and stir.
-
- Pour in the coconut milk and peas, stir and bring the mixture to come to a boil. Cook for about 3 to 4 minutes, stir and then remove the skillet from the heat. If you would like the sauce to be a tad thicker, you can add a few tablespoons of all-purpose wheat flour to the broth or add few more tablespoons of arrowroot starch.
-
- Evenly divide the chicken mixture among individual baking tins (14.5cm x 8.4 cm x 4.7 cm) or add to a large 5-quart casserole dish.
-
- Fold the fillo dough in fourths to the cover the top of the individual tins and then use scissors to cut off the excess. If you are using a large casserole dish, stack 5 sheets together, cover the casserole dish and then cut off the excess using scissors.
-
- In order to give the crust a nice golden color, beat an egg in a bowl and then brush the top of the fillo dough with the egg.
-
- Place the individual pies on a baking sheet and bake in the oven for about 20 minutes, or until the top of the pot pie is golden brown and crusty.
-
- Serve and enjoy immediately. For weekly meal prep, you can freeze these individual tins to preserve the freshness. To reheat, you should defrost in the refrigerator and reheat in the oven at a low temperature.sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            android:text=" "
             android:textSize="16sp"
             android:background="@android:color/white"
             android:padding="16dp"
