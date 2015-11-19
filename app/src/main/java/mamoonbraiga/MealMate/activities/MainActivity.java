@@ -143,5 +143,8 @@ public class MainActivity extends AppCompatActivity{
     public Bundle getSavedData(){
         return bundle;
     }
+    public void setActionBarTitle(String title){
+        toolbar.setTitle(title);
+    }
 
 }
