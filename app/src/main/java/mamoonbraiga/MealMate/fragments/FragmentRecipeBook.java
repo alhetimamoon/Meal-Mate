@@ -1,8 +1,8 @@
 package mamoonbraiga.MealMate.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +23,9 @@ import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
-import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.*;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_DECRIPTION;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_IMAGE;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
 
 /**
  * Created by MamoonBraiga on 2015-10-16.
@@ -43,10 +45,9 @@ public class FragmentRecipeBook extends Fragment{
         View view = inflater.inflate(R.layout.fragment_recipe_book, container, false);
         reList = (RecyclerView) view.findViewById(R.id.listRecipes);
         reList.setHasFixedSize(true);
-
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         reList.setLayoutManager(llm);
-
+        ((MainActivity) getActivity()).getSupportActionBar().show();
         /**** JSON Request *****/
         requestQueue = VolleySingleton.getsInstance().getmRequestQueue();
         sendJsonRequest();
@@ -78,9 +79,9 @@ public class FragmentRecipeBook extends Fragment{
             @Override
             public void onItemClick(View view, int position) {
                 bundle.putParcelable("recipe", recipes.get(position));
-                FragmentRecipe fragmentRecipe = new FragmentRecipe();
-                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                Fragment fragmentRecipe = new FragmentRecipe();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
                 ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
             }
         });
@@ -90,7 +91,7 @@ public class FragmentRecipeBook extends Fragment{
         mainActivity.saveData(ID, bundle);
     }
     public String getRequestURL(int limit){
-        return "https://meal-mate.herokuapp.com/recipes.json";
+        return "http://mealmate.co/recipes.json";
     }
 
     private void sendJsonRequest() {
