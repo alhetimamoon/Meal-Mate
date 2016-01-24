@@ -3,6 +3,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
 
+import org.json.JSONArray;
+
 import mamoonbraiga.poodle_v3.R;
 
 /**
@@ -19,6 +21,8 @@ public class Recipe implements Parcelable{
     protected  int protein;
     protected  int carbs;
     protected  int fat;
+    protected JSONArray instructions;
+    protected JSONArray ingredients;
 
     protected Recipe(Parcel in) {
         id = in.readInt();
@@ -89,6 +93,54 @@ public class Recipe implements Parcelable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public JSONArray getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(JSONArray instructions) {
+        this.instructions = instructions;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public int getProtein() {
+        return protein;
+    }
+
+    public void setProtein(int protein) {
+        this.protein = protein;
+    }
+
+    public int getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(int carbs) {
+        this.carbs = carbs;
+    }
+
+    public int getFat() {
+        return fat;
+    }
+
+    public void setFat(int fat) {
+        this.fat = fat;
+    }
+
+    public JSONArray getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(JSONArray ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override

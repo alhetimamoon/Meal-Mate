@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/nutrotion_facts_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/ColorPrimary"
+        android:text="NUTRITION FACTS (PER SERVING)" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_height="0.5dp"
+        android:background="@color/grey"/>
+
+    <TextView
+        android:id="@+id/calories"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  CALORIES: 152"
+        android:drawableLeft="@drawable/step"
+        android:textColor="@color/grey"
+
+        />
+    <TextView
+        android:id="@+id/protein"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  PROTEIN: 20g"
+        android:drawableLeft="@drawable/step"
+        android:textColor="@color/grey"
+
+        />
+    <TextView
+        android:id="@+id/carb"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  CARB: 2g"
+        android:drawableLeft="@drawable/step"
+        android:textColor="@color/grey"
+
+        />
+
+    <TextView
+        android:id="@+id/fat"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  FAT: 6g"
+        android:drawableLeft="@drawable/step"
+        android:textColor="@color/grey"
+
+        />
+
+
+
+
+</LinearLayout>

@@ -22,11 +22,7 @@ import mamoonbraiga.MealMate.adapters.AdapterRecipeBook;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
-
-import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_DECRIPTION;
-import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_IMAGE;
-import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
-
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.*;
 /**
  * Created by MamoonBraiga on 2015-10-16.
  */
@@ -66,8 +62,14 @@ public class FragmentRecipeBook extends Fragment{
             Recipe recipe = new Recipe();
             try {
                 recipe.setTitle((String) JSONRecipes.getJSONObject(i).get(KEY_TITLE));
-                recipe.setDescription((String) JSONRecipes.getJSONObject(i).get(KEY_DECRIPTION));
+                recipe.setDescription((String) JSONRecipes.getJSONObject(i).get(KEY_DESCRIPTION));
                 recipe.setImageUrl(JSONRecipes.getJSONObject(i).getString(KEY_IMAGE));
+                recipe.setInstructions(JSONRecipes.getJSONObject(i).getJSONArray(KEY_INSTRUCTIONS));
+                recipe.setCalories(JSONRecipes.getJSONObject(i).getInt(KEY_CALORIES));
+                recipe.setProtein(JSONRecipes.getJSONObject(i).getInt(KEY_PROTEIN));
+                recipe.setCarbs(JSONRecipes.getJSONObject(i).getInt(KEY_CARB));
+                recipe.setFat(JSONRecipes.getJSONObject(i).getInt(KEY_FAT));
+                recipe.setIngredients(JSONRecipes.getJSONObject(i).getJSONArray(KEY_INGREDIENTS));
                 recipes.add(recipe);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -90,12 +92,12 @@ public class FragmentRecipeBook extends Fragment{
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.saveData(ID, bundle);
     }
-    public String getRequestURL(int limit){
-        return "http://mealmate.co/recipes.json";
+    public String getRequestURL(){
+        return "http://mealmate.co/api/recipes.json";
     }
 
     private void sendJsonRequest() {
-        final StringRequest request = new StringRequest(Request.Method.GET, getRequestURL(1) , new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(Request.Method.GET, getRequestURL() , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getActivity(), "RESPONSE "+response, Toast.LENGTH_LONG).show();

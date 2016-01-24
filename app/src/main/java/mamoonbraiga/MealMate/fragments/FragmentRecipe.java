@@ -1,6 +1,7 @@
 package mamoonbraiga.MealMate.fragments;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -24,6 +25,7 @@ import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
+
 
 public class FragmentRecipe extends Fragment{
 
@@ -62,10 +64,12 @@ public class FragmentRecipe extends Fragment{
         mainActivity.setActionBar(toolbar);
         mainActivity.getActionBar().setDisplayHomeAsUpEnabled(true);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
+        viewPager.setVerticalScrollBarEnabled(true);
         setUpViewPager(viewPager);
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
         //tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF5722"));
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -114,7 +118,7 @@ public class FragmentRecipe extends Fragment{
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         adapter.addFrag(new FragmentDescription(), "Description");
         adapter.addFrag(new FragmentIngredients(), "Ingredients");
-        adapter.addFrag(new FragmentNutritions(), "Nutrition");
+        adapter.addFrag(new FragmentNutrition(), "Nutrition");
         viewPager.setAdapter(adapter);
 
     }

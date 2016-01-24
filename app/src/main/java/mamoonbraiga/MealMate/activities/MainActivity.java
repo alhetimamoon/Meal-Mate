@@ -47,6 +47,19 @@ public class MainActivity extends AppCompatActivity{
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
+        Class fragmentClass = FragmentRecipeBook.class;
+        Fragment fragment = null;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack("Sub fragment").commit();
+
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {

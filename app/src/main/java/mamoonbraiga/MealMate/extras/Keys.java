@@ -6,15 +6,14 @@ package mamoonbraiga.MealMate.extras;
 public interface Keys {
 
     public interface RecipeKeys{
-        public static final String KEY_ID = "id";
+        public static final String KEY_INSTRUCTIONS = "instructions";
         public static final String KEY_TITLE = "name";
-        public static final String KEY_DECRIPTION = "description";
+        public static final String KEY_DESCRIPTION = "description";
         public static final String KEY_CALORIES = "calories";
         public static final String KEY_PROTEIN = "protein";
-        public static final String KEY_CARBS = "carbs";
+        public static final String KEY_CARB = "carbs";
         public static final String KEY_FAT = "fat";
-        public static final String KEY_URL = "url";
-        public static final String KEY_IMAGE = "image";
-
+        public static final String KEY_IMAGE = "recipe_url";
+        public static final String KEY_INGREDIENTS = "ingredients";
     }
 }
