@@ -153,5 +153,10 @@ public class FragmentRecipe extends Fragment{
         }
 
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        ((MainActivity) getActivity()).getSupportActionBar().show();
+    }
 
 }
