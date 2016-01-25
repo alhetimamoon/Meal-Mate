@@ -1,4 +1,4 @@
-package mamoonbraiga.poodle_v3;
+package mamoonbraiga.Mealmate;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
