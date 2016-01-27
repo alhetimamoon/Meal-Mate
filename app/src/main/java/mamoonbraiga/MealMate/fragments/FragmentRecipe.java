@@ -9,18 +9,21 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
@@ -30,8 +33,8 @@ import mamoonbraiga.poodle_v3.R;
 public class FragmentRecipe extends Fragment{
 
     private ImageView header;
-    private VolleySingleton volleySingleton;
-    private ImageLoader imageLoader;
+    private VolleySingleton volleySingleton = VolleySingleton.getsInstance();;
+    private ImageLoader imageLoader=volleySingleton.getImageLoader();;
     private Bundle bundle;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -41,13 +44,31 @@ public class FragmentRecipe extends Fragment{
 
         final View view = inflater.inflate(R.layout.fragment_recipe, container, false);
         MainActivity mainActivity = (MainActivity) getActivity();
-        header = (ImageView) view.findViewById(R.id.htab_header);  //setting up the header
-        volleySingleton = VolleySingleton.getsInstance();
-        imageLoader = volleySingleton.getImageLoader();
+        header = (ImageView) view.findViewById(R.id.recipe_header);  //setting up the header
         bundle = mainActivity.getSavedData();
         Recipe recipe = bundle.getParcelable("recipe");
-        ((MainActivity) getActivity()).getSupportActionBar().hide();
+
         //load the header
+        loadHeader(recipe);
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
+        mainActivity.setActionBar(toolbar);
+        mainActivity.getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /** view pager and tab setup **/
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setVerticalScrollBarEnabled(true);
+        setUpViewPager(viewPager);
+        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF5722"));
+        tabLayout.setupWithViewPager(viewPager);
+        /** view pager and tab setup **/
+
+        return view;
+    }
+
+    private void loadHeader(Recipe recipe) {
         imageLoader.get(recipe.getImageUrl(), new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -60,52 +81,6 @@ public class FragmentRecipe extends Fragment{
 
             }
         });
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
-        mainActivity.setActionBar(toolbar);
-        mainActivity.getActionBar().setDisplayHomeAsUpEnabled(true);
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
-        viewPager.setVerticalScrollBarEnabled(true);
-        setUpViewPager(viewPager);
-        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
-        //tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF5722"));
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-            }
-        });
-        /**
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-
-                switch (tab.getPosition()){
-                    case 0:
-                        showToast("One");
-                        break;
-                    case 1:
-                        showToast("Two");
-                        break;
-                    case 2:
-                        showToast("Three");
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });**/
-        return view;
     }
 
     private void showToast(String msg) {
@@ -123,7 +98,7 @@ public class FragmentRecipe extends Fragment{
 
     }
 
-    static class ViewPagerAdapter extends FragmentPagerAdapter{
+    static class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
 
         private final List<String> mFragmentTitleList = new ArrayList<>();
