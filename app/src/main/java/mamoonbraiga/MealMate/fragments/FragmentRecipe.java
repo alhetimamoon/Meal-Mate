@@ -51,7 +51,7 @@ public class FragmentRecipe extends Fragment{
         //load the header
         loadHeader(recipe);
         ((MainActivity) getActivity()).getSupportActionBar().hide();
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tab_toolbar);
         mainActivity.setActionBar(toolbar);
         mainActivity.getActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import org.json.JSONException;
-
 import java.util.ArrayList;
-
 import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.poodle_v3.R;
