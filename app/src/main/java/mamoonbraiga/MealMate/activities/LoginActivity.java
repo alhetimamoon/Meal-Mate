@@ -1,7 +1,9 @@
 package mamoonbraiga.MealMate.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +38,7 @@ public class LoginActivity extends AppCompatActivity{
     private static final int Siguup_request = 0;
     int test;
     private static final String url= "http://www.mealmate.co/api/users/sign_in";
-
+    private SharedPreferences sharedPref;
 
     @InjectView(R.id.input_email)
     EditText email_text;
@@ -50,6 +52,14 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
+        sharedPref = getSharedPreferences("loginState", Context.MODE_PRIVATE);
+
+        if (sharedPref.getString("isSignedOn", "") != null){
+            if (sharedPref.getString("isSignedOn", "").equals("yes")){
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
         login_button.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +77,8 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
+
     private void signup() {
-
-
-
     }
 
     private void login(){
@@ -119,10 +127,7 @@ public class LoginActivity extends AppCompatActivity{
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Siguup_request) {
@@ -146,8 +151,10 @@ public class LoginActivity extends AppCompatActivity{
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         Toast.makeText(getBaseContext(), "Login successful", Toast.LENGTH_SHORT).show();
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("isSignedOn", "yes");
+        editor.apply();
         finish();
-
     }
 
     public void onLoginFailed() {
@@ -155,10 +162,6 @@ public class LoginActivity extends AppCompatActivity{
 
         login_button.setEnabled(true);
     }
-
-
-
-
     public boolean validate() {
         boolean valid = true;
 
@@ -181,7 +184,6 @@ public class LoginActivity extends AppCompatActivity{
 
         return valid;
     }
-
     public class LoginTask extends AsyncTask<ArrayList<String>, Void, JSONObject> {
         private static final String TAG = "BackgroundTask";
         private String response;
