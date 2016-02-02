@@ -15,12 +15,16 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import mamoonbraiga.MealMate.network.JSONParser;
 import mamoonbraiga.poodle_v3.R;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by MamoonBraiga on 2015-11-09.
@@ -30,6 +34,8 @@ public class LoginActivity extends AppCompatActivity{
 
     private static final String Tag = "Login Activity";
     private static final int Siguup_request = 0;
+    int test;
+    private static final String url= "http://www.mealmate.co/api/users/sign_in";
 
 
     @InjectView(R.id.input_email)
@@ -67,7 +73,7 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
-    private void login() {
+    private void login(){
         Log.d(Tag, "Signup");
 
         if (!validate()) {
@@ -77,12 +83,44 @@ public class LoginActivity extends AppCompatActivity{
 
         signup_link.setEnabled(false);
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
 
         final String email = email_text.getText().toString();
         final String password = password_text.getText().toString();
 
+        ArrayList<String> params = new ArrayList<>();
+        params.add(url);
+        params.add(email);
+        params.add(password);
+
         // TODO: Implement your own authentication logic here.
-        new PostAsync().execute(email, password);
+        LoginTask login = null;
+        try {
+            login = (LoginTask) new LoginTask().execute(params);
+            Thread.sleep(500);
+            final JSONObject response = login.getResponse();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            try {
+                                Log.d("the value ", response.getString("success"));
+                                if (response.getBoolean("success") == (Boolean.TRUE))
+                                    onLoginSuccess();
+                                else
+                                    onLoginFailed();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            progressDialog.dismiss();
+                        }
+                    }, 3000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
@@ -107,12 +145,14 @@ public class LoginActivity extends AppCompatActivity{
         login_button.setEnabled(true);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        Toast.makeText(getBaseContext(), "Login successful", Toast.LENGTH_SHORT).show();
         finish();
 
     }
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+
         login_button.setEnabled(true);
     }
 
@@ -141,80 +181,39 @@ public class LoginActivity extends AppCompatActivity{
 
         return valid;
     }
-    class PostAsync extends AsyncTask<String, String, JSONObject> {
-        JSONParser jsonParser = new JSONParser();
 
-        private ProgressDialog pDialog;
-
-        private static final String LOGIN_URL = "http://mealmate.co/api/users/sign_in";
-
-        private static final String TAG_SUCCESS = "success";
-        private static final String TAG_MESSAGE = "message";
-
+    public class LoginTask extends AsyncTask<ArrayList<String>, Void, JSONObject> {
+        private static final String TAG = "BackgroundTask";
+        private String response;
+        JSONObject message;
 
         @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setMessage("Attempting login...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
+        protected JSONObject doInBackground(ArrayList<String>... params) {
+            Response response = null;
 
-        @Override
-        protected JSONObject doInBackground(String... args) {
+            OkHttpClient client = new OkHttpClient();
+            RequestBody formBody = new FormBody.Builder()
+                    .add("email", params[0].get(1))
+                    .add("password", params[0].get(2))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(params[0].get(0))
+                    .post(formBody)
+                    .build();
 
             try {
 
-                HashMap<String, String> params = new HashMap<>();
-                params.put("email", args[0]);
-                params.put("password", args[1]);
-
-                Log.d("request", "starting");
-
-                JSONObject json = jsonParser.makeHttpRequest(
-                        LOGIN_URL, "POST", params);
-
-                if (json != null) {
-                    Log.d("JSON result", json.toString());
-
-                    return json;
-                }
-
+                response = client.newCall(request).execute();
+                message = new JSONObject(response.body().string());
+                return message;
             } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+                e.printStackTrace();}
             return null;
+
         }
-
-        protected void onPostExecute(JSONObject json) {
-
-            int success = 0;
-            String message = "";
-
-            if (pDialog != null && pDialog.isShowing()) {
-                pDialog.dismiss();
-            }
-
-            if (json != null) {
-                Toast.makeText(LoginActivity.this, json.toString(),
-                        Toast.LENGTH_LONG).show();
-
-                try {
-                    success = json.getInt(TAG_SUCCESS);
-                    message = json.getString(TAG_MESSAGE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (success == 1) {
-                Log.d("Success!", message);
-                onLoginSuccess();
-            }else{
-                Log.d("Failure", message);
-            }
+        public JSONObject getResponse(){
+            return this.message;
         }
 
     }
