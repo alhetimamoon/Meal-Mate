@@ -6,12 +6,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,8 @@ import mamoonbraiga.poodle_v3.R;
 public class FragmentRecipe extends Fragment{
 
     private ImageView header;
-    private VolleySingleton volleySingleton = VolleySingleton.getsInstance();;
-    private ImageLoader imageLoader=volleySingleton.getImageLoader();;
+    private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
+    private ImageLoader imageLoader=volleySingleton.getImageLoader();
     private Bundle bundle;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -52,8 +53,11 @@ public class FragmentRecipe extends Fragment{
         loadHeader(recipe);
         ((MainActivity) getActivity()).getSupportActionBar().hide();
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tab_toolbar);
-        mainActivity.setActionBar(toolbar);
-        mainActivity.getActionBar().setDisplayHomeAsUpEnabled(true);
+        mainActivity.setSupportActionBar(toolbar);
+        mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CollapsingToolbarLayout collapsingToolbarLayout= (CollapsingToolbarLayout) view.findViewById(R.id.tab_collapse_toolbar);
+        collapsingToolbarLayout.setTitleEnabled(false);
 
         /** view pager and tab setup **/
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
@@ -98,7 +102,7 @@ public class FragmentRecipe extends Fragment{
 
     }
 
-    static class ViewPagerAdapter extends FragmentStatePagerAdapter{
+    public static class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
 
         private final List<String> mFragmentTitleList = new ArrayList<>();

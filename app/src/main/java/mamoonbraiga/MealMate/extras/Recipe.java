@@ -1,4 +1,5 @@
 package mamoonbraiga.MealMate.extras;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
@@ -141,6 +142,10 @@ public class Recipe implements Parcelable{
 
     public void setIngredients(JSONArray ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void setImageFromDrawable(Drawable image){
+        this.setImageFromDrawable(image);
     }
 
     @Override

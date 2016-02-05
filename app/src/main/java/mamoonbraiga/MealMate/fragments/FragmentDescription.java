@@ -19,6 +19,10 @@ import mamoonbraiga.poodle_v3.R;
 public class FragmentDescription extends Fragment {
 
     private TextView description;
+    private TextView description2;
+    private TextView description3;
+    private TextView description4;
+
     private ArrayList<String> stepsList = new ArrayList<>();
     private ListView steps;
 
@@ -27,6 +31,7 @@ public class FragmentDescription extends Fragment {
 
         //view setup
         View view = inflater.inflate(R.layout.fragment_description, container, false);
+
         description = (TextView) view.findViewById(R.id.description);
         steps = (ListView) view.findViewById(R.id.steps);
 

@@ -1,5 +1,8 @@
 package mamoonbraiga.MealMate.adapters;
 
+/**
+ * Created by MamoonBraiga on 2016-02-04.
+ */
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,53 +20,55 @@ import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
 /**
- * Created by MamoonBraiga on 2015-10-28.
- * This class stands between the recipes data model we want to show in the UI and the UI compenet that renders this information
- * This class is used by FragmentRecipeBook class, to show/update cards
+ * Created by florentchampigny on 24/04/15.
  */
-public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.ViewHolderRecipeBook> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolderProfileRecipes> {
 
-    private List<Recipe> recipes;
+    List<Recipe> contents;
+
+    static final int TYPE_HEADER = 0;
+    static final int TYPE_CELL = 1;
+
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
 
-    // Define listener member variable
-    private static OnItemClickListener listener;
-    // Define the listener interface
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
-    }
-    // Define the method that allows the parent activity or fragment to define the listener
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 
-    public AdapterRecipeBook(List<Recipe> recipes){
-        this.recipes = recipes;
+    public RecyclerViewAdapter(List<Recipe> contents) {
+        this.contents = contents;
+
+    }
+    @Override
+    public int getItemViewType(int position) {
+        switch (position) {
+            case 0:
+                return TYPE_HEADER;
+            default:
+                return TYPE_CELL;
+        }
     }
 
     @Override
-    public ViewHolderRecipeBook onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public int getItemCount() {
+        return contents.size();
+    }
+
+    @Override
+    public ViewHolderProfileRecipes onCreateViewHolder(ViewGroup parent, int viewType) {
         volleySingleton = VolleySingleton.getsInstance();
         imageLoader = volleySingleton.getImageLoader();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout, parent, false);
-        ViewHolderRecipeBook viewHolder = new ViewHolderRecipeBook(view);
+        ViewHolderProfileRecipes viewHolder = new ViewHolderProfileRecipes(view);
         return viewHolder;
-    }
 
-    /**
-     *
-     * @param holder
-     * @param position the position of the recipe within our data structure
-     */
+    }
     @Override
-    public void onBindViewHolder(final AdapterRecipeBook.ViewHolderRecipeBook holder, int position) {
-        Recipe recipe = recipes.get(position);
+    public void onBindViewHolder(final RecyclerViewAdapter.ViewHolderProfileRecipes holder, int position) {
+        Recipe recipe = contents.get(position);
         String imageUrl = recipe.getImageUrl();
 
         if (imageUrl != null){
 
-            imageLoader.get(imageUrl, new ImageLoader.ImageListener() {
+            imageLoader.get("http://s3.amazonaws.com/meal-mate-1/recipes/images/000/000/011/original/muffins.jpg?1451948726", new ImageLoader.ImageListener() {
 
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -80,15 +85,8 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
 
         holder.setTitle(recipe.getTitle());
         holder.setDescription(recipe.getDescription());
-
     }
-
-    @Override
-    public int getItemCount() {
-        return recipes.size();
-    }
-
-    public static class ViewHolderRecipeBook extends RecyclerView.ViewHolder{
+    public static class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
         /**
          * This class is used to hold the references to UI compnents for each recipe
          * use this when connecting to the database using JSON
@@ -98,19 +96,11 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
         private TextView description;
         private String mItem;
 
-        public ViewHolderRecipeBook(View v) {
+        public ViewHolderProfileRecipes(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.recipeTitle);
             description = (TextView) v.findViewById(R.id.recipeDescription);
             image = (ImageView) v.findViewById(R.id.recipeThumbnail);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Triggers click upwards to the adapter on click
-                    if (listener != null)
-                        listener.onItemClick(itemView, getLayoutPosition());
-                }
-            });
 
         }
         public void setTitle(String titleString){
