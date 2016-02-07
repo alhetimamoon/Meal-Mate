@@ -1,7 +1,6 @@
 package mamoonbraiga.MealMate.fragments;
 
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -12,9 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -22,10 +28,12 @@ import java.util.List;
 
 import mamoonbraiga.MealMate.adapters.RecyclerViewAdapter;
 import mamoonbraiga.MealMate.extras.Recipe;
+import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_DESCRIPTION;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_IMAGE;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
 
 /**
  * Created by MamoonBraiga on 2016-02-04.
@@ -41,6 +49,10 @@ public class FragmentLikedRecipes extends Fragment {
     private int id;
     private StringBuilder urlBuilder = new StringBuilder();
     private String getURL;
+    private JSONArray likedRecipesJSONArray;
+    private RequestQueue requestQueue;
+    String responseBack;
+
 
 
 
@@ -54,29 +66,65 @@ public class FragmentLikedRecipes extends Fragment {
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getContext());
         token = (mSharedPreference.getString("token", null));
         id = (mSharedPreference.getInt("id", 0));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        requestQueue = VolleySingleton.getsInstance().getmRequestQueue();
+
+        createURL(); //prepare GET url
+        /**
+        final StringRequest request = new StringRequest(Request.Method.GET, "http://www.mealmate.co/api/recipes" , new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //Toast.makeText(getActivity(), "RESPONSE "+response, Toast.LENGTH_LONG).show();
+                addLikedRecipes(response);
+                mAdapter = new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(likedRecipes), 2);
+                MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                mRecyclerView.setAdapter(mAdapter);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getActivity(), "ERROR "+error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        **/
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getURL, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                addLikedRecipes(response);
+                mAdapter = new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(likedRecipes), 2);
+                MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                mRecyclerView.setAdapter(mAdapter);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(request);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(likedRecipes), 2);
+        super.onViewCreated(view, savedInstanceState);}
 
-        createURL();
-        addLikedRecipes();
-        new UserRecipesTask().execute(getURL);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-        mRecyclerView.setAdapter(mAdapter);
 
+
+    private void parseJSON(String response) {
+        this.responseBack = response;
     }
 
     private void createURL() {
         urlBuilder.append(URL);
-        urlBuilder.append("authentication_token=");
+        urlBuilder.append("auth_token=");
         urlBuilder.append(token);
         urlBuilder.append("&user_id=");
         urlBuilder.append(id);
@@ -84,47 +132,24 @@ public class FragmentLikedRecipes extends Fragment {
 
     }
 
-    private void addLikedRecipes() {
 
-
-        for (int i = 0; i < ITEM_COUNT; ++i){
-            Recipe recipe = new Recipe();
-            recipe.setTitle("Three Cheese Pasta");
-            recipe.setDescription("skdjf ksdjf sldkjf ksldfj ");
-            likedRecipes.add(recipe);
+    private void addLikedRecipes(JSONObject responseBack) {
+        try {
+            likedRecipesJSONArray = responseBack.getJSONArray("users_recipes");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-    }
-
-    public class UserRecipesTask extends AsyncTask<String, Void, JSONObject> {
-        private static final String TAG = "BackgroundTask";
-        private String response;
-        JSONObject message;
-
-        @Override
-        protected JSONObject doInBackground(String... url) {
-            Response response = null;
-
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(url[0])
-                    .get()
-                    .build();
-
+        for (int i = 0; i < likedRecipesJSONArray.length(); ++i){
+                Recipe recipe = new Recipe();
             try {
-
-                response = client.newCall(request).execute();
-                message = new JSONObject(response.body().string());
-                return message;
-            } catch (Exception e) {
+                recipe.setTitle((String) likedRecipesJSONArray.getJSONObject(i).get(KEY_TITLE));
+                recipe.setDescription((String) likedRecipesJSONArray.getJSONObject(i).get(KEY_DESCRIPTION));
+                recipe.setImageUrl((String) likedRecipesJSONArray.getJSONObject(i).get(KEY_IMAGE));
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return null;
-
-        }
-        public JSONObject getResponse(){
-            return this.message;
+                likedRecipes.add(recipe);
+            }
         }
 
-    }
 }

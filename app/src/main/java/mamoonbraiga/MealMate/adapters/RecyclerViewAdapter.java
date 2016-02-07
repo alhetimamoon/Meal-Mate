@@ -19,9 +19,6 @@ import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
-/**
- * Created by florentchampigny on 24/04/15.
- */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolderProfileRecipes> {
 
     List<Recipe> contents;
@@ -56,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolderProfileRecipes onCreateViewHolder(ViewGroup parent, int viewType) {
         volleySingleton = VolleySingleton.getsInstance();
         imageLoader = volleySingleton.getImageLoader();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout_small, parent, false);
         ViewHolderProfileRecipes viewHolder = new ViewHolderProfileRecipes(view);
         return viewHolder;
 
@@ -68,7 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if (imageUrl != null){
 
-            imageLoader.get("http://s3.amazonaws.com/meal-mate-1/recipes/images/000/000/011/original/muffins.jpg?1451948726", new ImageLoader.ImageListener() {
+            imageLoader.get(imageUrl, new ImageLoader.ImageListener() {
 
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -84,7 +81,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.setTitle(recipe.getTitle());
-        holder.setDescription(recipe.getDescription());
     }
     public static class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
         /**
@@ -105,9 +101,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         public void setTitle(String titleString){
             this.title.setText(titleString);
-        }
-        public void setDescription(String descriptionString){
-            this.description.setText(descriptionString);
         }
 
     }

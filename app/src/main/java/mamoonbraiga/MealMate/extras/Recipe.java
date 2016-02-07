@@ -6,8 +6,6 @@ import android.widget.ImageView;
 
 import org.json.JSONArray;
 
-import mamoonbraiga.poodle_v3.R;
-
 /**
  * Created by MamoonBraiga on 2015-10-28.
  */
@@ -36,7 +34,6 @@ public class Recipe implements Parcelable{
         fat = in.readInt();
     }
     public Recipe(){
-
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -50,11 +47,6 @@ public class Recipe implements Parcelable{
             return new Recipe[size];
         }
     };
-
-    public void Recipe(){
-        this.image.setImageResource(R.drawable.pasta);
-
-    }
 
     public String getTitle() {
         return title;
@@ -145,7 +137,8 @@ public class Recipe implements Parcelable{
     }
 
     public void setImageFromDrawable(Drawable image){
-        this.setImageFromDrawable(image);
+
+
     }
 
     @Override

@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +50,6 @@ public class FragmentRecipe extends Fragment{
 
         //load the header
         loadHeader(recipe);
-        ((MainActivity) getActivity()).getSupportActionBar().hide();
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tab_toolbar);
-        mainActivity.setSupportActionBar(toolbar);
-        mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout collapsingToolbarLayout= (CollapsingToolbarLayout) view.findViewById(R.id.tab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
@@ -135,7 +130,6 @@ public class FragmentRecipe extends Fragment{
     @Override
     public void onPause(){
         super.onPause();
-        ((MainActivity) getActivity()).getSupportActionBar().show();
     }
 
 }
