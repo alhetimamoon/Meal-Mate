@@ -8,5 +8,5 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/header" />
+        android:src="@drawable/header_pasta" />
 </FrameLayout>

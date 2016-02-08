@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recipeThumbnail"
-            android:maxLines="3"
+            android:maxLines="1"
             android:padding="8dp"
             android:text="Farfalle with Butternut Squash"
             android:textColor="@color/grey"
