@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import org.json.JSONException;
@@ -19,9 +20,7 @@ import mamoonbraiga.poodle_v3.R;
 public class FragmentDescription extends Fragment {
 
     private TextView description;
-    private TextView description2;
-    private TextView description3;
-    private TextView description4;
+    private Button likeButton;
 
     private ArrayList<String> stepsList = new ArrayList<>();
     private ListView steps;
@@ -34,6 +33,8 @@ public class FragmentDescription extends Fragment {
 
         description = (TextView) view.findViewById(R.id.description);
         steps = (ListView) view.findViewById(R.id.steps);
+        likeButton = (Button) view.findViewById(R.id.likeButtonRecipe);
+
 
         //get the saved data from main activity
         MainActivity mainActivity = (MainActivity) getActivity();

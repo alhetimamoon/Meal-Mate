@@ -1,7 +1,9 @@
 package mamoonbraiga.MealMate.activities;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
     private Bundle bundle;
     private ActionBar actionBar;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,13 +148,19 @@ public class MainActivity extends AppCompatActivity{
         drawerToggle.onConfigurationChanged(newConfig);
 
     }
+
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            this.finish();
+
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
         } else {
             getFragmentManager().popBackStack();
         }
+
     }
 
     public void saveData(int id, Bundle data){
@@ -172,4 +181,5 @@ public class MainActivity extends AppCompatActivity{
             e.printStackTrace();
         }
     }
+
 }
