@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.adapters.AdapterRecipeBook;
+import mamoonbraiga.MealMate.extras.API;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
@@ -61,6 +62,7 @@ public class FragmentRecipeBook extends Fragment{
         for (int i=0; i<JSONRecipes.length(); i++){
             Recipe recipe = new Recipe();
             try {
+                recipe.setId((Integer) JSONRecipes.getJSONObject(i).get(KEY_ID));
                 recipe.setTitle((String) JSONRecipes.getJSONObject(i).get(KEY_TITLE));
                 recipe.setDescription((String) JSONRecipes.getJSONObject(i).get(KEY_DESCRIPTION));
                 recipe.setImageUrl(JSONRecipes.getJSONObject(i).getString(KEY_IMAGE));
@@ -92,15 +94,10 @@ public class FragmentRecipeBook extends Fragment{
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.saveData(ID, bundle);
     }
-    public String getRequestURL(){
-        return "http://mealmate.co/api/recipes.json";
-    }
-
     private void sendJsonRequest() {
-        final StringRequest request = new StringRequest(Request.Method.GET, getRequestURL() , new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(Request.Method.GET, API.recipes_api , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //Toast.makeText(getActivity(), "RESPONSE "+response, Toast.LENGTH_LONG).show();
                 parseJSONResponse(response);
             }
         }, new Response.ErrorListener() {

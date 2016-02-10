@@ -1,5 +1,4 @@
 package mamoonbraiga.MealMate.extras;
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
@@ -22,6 +21,7 @@ public class Recipe implements Parcelable{
     protected  int fat;
     protected JSONArray instructions;
     protected JSONArray ingredients;
+    protected boolean liked;
 
     protected Recipe(Parcel in) {
         id = in.readInt();
@@ -136,9 +136,12 @@ public class Recipe implements Parcelable{
         this.ingredients = ingredients;
     }
 
-    public void setImageFromDrawable(Drawable image){
+    public boolean isLiked() {
+        return liked;
+    }
 
-
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     @Override

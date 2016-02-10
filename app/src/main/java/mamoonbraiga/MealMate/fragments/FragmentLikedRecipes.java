@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import mamoonbraiga.MealMate.adapters.RecyclerViewAdapter;
+import mamoonbraiga.MealMate.extras.API;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
@@ -35,7 +36,6 @@ import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
  */
 public class FragmentLikedRecipes extends Fragment {
 
-    private static final String URL= "http://mealmate.co/api/profile?";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private List<Recipe> likedRecipes = new ArrayList<>();
@@ -46,10 +46,6 @@ public class FragmentLikedRecipes extends Fragment {
     private JSONArray likedRecipesJSONArray;
     private RequestQueue requestQueue;
 
-
-    public static FragmentLikedRecipes newInstance() {
-        return new FragmentLikedRecipes();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -102,7 +98,7 @@ public class FragmentLikedRecipes extends Fragment {
         super.onViewCreated(view, savedInstanceState);}
 
     private void createURL() {
-        urlBuilder.append(URL);
+        urlBuilder.append(API.user_recipes_base);
         urlBuilder.append("auth_token=");
         urlBuilder.append(token);
         urlBuilder.append("&user_id=");

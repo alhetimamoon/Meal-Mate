@@ -15,5 +15,8 @@ public interface Keys {
         public static final String KEY_FAT = "fat";
         public static final String KEY_IMAGE = "recipe_url";
         public static final String KEY_INGREDIENTS = "ingredients";
+        public static final String KEY_ID = "id";
+        public static final String KEY_LIKED = "liked";
+
     }
 }

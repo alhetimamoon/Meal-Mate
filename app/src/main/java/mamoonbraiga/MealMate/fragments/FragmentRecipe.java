@@ -59,14 +59,6 @@ public class FragmentRecipe extends Fragment{
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.ColorPrimaryDark,
                                 recipe.getImageUrl());
-                    case 1:
-                        return HeaderDesign.fromColorResAndUrl(
-                                R.color.ColorPrimaryDark,
-                                recipe.getImageUrl());
-                    case 2:
-                        return HeaderDesign.fromColorResAndUrl(
-                                R.color.ColorPrimaryDark,
-                                recipe.getImageUrl());
                 }
 
                 //execute others actions if needed (ex : modify your header logo)

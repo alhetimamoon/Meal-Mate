@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mamoonbraiga.MealMate.adapters.RecyclerViewAdapter;
+import mamoonbraiga.MealMate.extras.API;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
@@ -42,7 +43,6 @@ import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
 public class FragmentYourRecipes extends Fragment {
 
     private ObservableScrollView mScrollView;
-    private static final String URL= "http://mealmate.co/api/profile?";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private List<Recipe> likedRecipes = new ArrayList<>();
@@ -125,7 +125,7 @@ public class FragmentYourRecipes extends Fragment {
     }
 
     private void createURL() {
-        urlBuilder.append(URL);
+        urlBuilder.append(API.user_recipes_base);
         urlBuilder.append("auth_token=");
         urlBuilder.append(token);
         urlBuilder.append("&user_id=");

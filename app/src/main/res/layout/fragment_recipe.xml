@@ -14,7 +14,7 @@
     app:viewpager_headerHeight="200dp"
     app:viewpager_headerAlpha="1.0"
     app:viewpager_hideLogoWithFade="true"
-    app:viewpager_hideToolbarAndTitle="true"
+    app:viewpager_hideToolbarAndTitle="false"
     app:viewpager_enableToolbarElevation="true"
     app:viewpager_parallaxHeaderFactor="1.5"
     app:viewpager_headerAdditionalHeight="20dp"
@@ -22,5 +22,6 @@
     app:viewpager_transparentToolbar="true"
     app:viewpager_animatedHeaderImage="false"
     app:viewpager_disableToolbar="true"
+
 
     />
