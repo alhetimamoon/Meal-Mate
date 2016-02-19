@@ -9,5 +9,6 @@
     <color name="bkg_card">#8C9EFF</color>
     <color name="accent_color">#CCCCCC</color>
     <color name="iron">#CCCCCC</color>
+    <color name="toolbar_color">#2C3539</color>
 
 </resources>

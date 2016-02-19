@@ -1,7 +1,5 @@
 package mamoonbraiga.MealMate.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,10 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.poodle_v3.R;
 
@@ -30,8 +31,7 @@ public class FragmentProfile extends Fragment{
         final Drawable header2 = getResources().getDrawable(R.drawable.pizza_header);
         MainActivity mainActivity = (MainActivity) getActivity();
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        mainActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mainActivity.getSupportActionBar().setStackedBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         vPager = (MaterialViewPager) view.findViewById(R.id.materialViewPager);
         vPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override

@@ -1,13 +1,13 @@
 package mamoonbraiga.MealMate.activities;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,13 +24,12 @@ import mamoonbraiga.MealMate.fragments.FragmentRecipeBook;
 import mamoonbraiga.MealMate.fragments.FragmentStats;
 import mamoonbraiga.poodle_v3.R;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private Bundle bundle;
-    private ActionBar actionBar;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
 
         //replace the default toolbar with our toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.toolbar_color));
         setSupportActionBar(toolbar);
 
         Window window = this.getWindow();
@@ -50,12 +50,7 @@ public class MainActivity extends AppCompatActivity{
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        // finally change the color
-        window.setStatusBarColor(this.getResources().getColor(R.color.ColorPrimaryDark));
-
-
         //enabling tabs mode in the action bar
-        actionBar = getActionBar();
 
         //get the drawer view by id
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -81,7 +76,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this,mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(final NavigationView navigationView) {
@@ -100,7 +95,7 @@ public class MainActivity extends AppCompatActivity{
     private void selectDrawerItem(MenuItem menuItem) {
         Fragment fragment = null;
         Class fragmentClass;
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_first_fragment:
                 fragmentClass = FragmentProfile.class;
                 break;
@@ -120,9 +115,9 @@ public class MainActivity extends AppCompatActivity{
                 fragmentClass = FragmentRecipeBook.class;
         }
 
-        try{
+        try {
             fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -157,7 +152,8 @@ public class MainActivity extends AppCompatActivity{
         super.onPostCreate(savedInstanceState);
         drawerToggle.syncState();
     }
-    public void onConfigurationChanged(Configuration newConfig){
+
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
 
@@ -177,14 +173,15 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public void saveData(int id, Bundle data){
+    public void saveData(int id, Bundle data) {
         bundle = data;
     }
 
-    public Bundle getSavedData(){
+    public Bundle getSavedData() {
         return bundle;
     }
-    public void setActionBarTitle(String title){
+
+    public void setActionBarTitle(String title) {
         toolbar.setTitle(title);
     }
 
