@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         //replace the default toolbar with our toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.toolbar_color));
+        //toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.toolbar_color));
         setSupportActionBar(toolbar);
 
         Window window = this.getWindow();
@@ -50,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        //enabling tabs mode in the action bar
+        // finally change the color
+        window.setStatusBarColor(this.getResources().getColor(R.color.ColorPrimaryDark));
 
         //get the drawer view by id
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -185,12 +185,5 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(title);
     }
 
-    public void delay(int i) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

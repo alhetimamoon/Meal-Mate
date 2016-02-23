@@ -1,8 +1,6 @@
 package mamoonbraiga.MealMate.fragments;
 
 import android.annotation.TargetApi;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
@@ -42,12 +39,9 @@ public class FragmentRecipe extends Fragment{
 
         final View view = inflater.inflate(R.layout.fragment_recipe, container, false);
         MainActivity mainActivity = (MainActivity) getActivity();
-        //header = (ImageView) view.findViewById(R.id.recipe_header);  //setting up the header
         bundle = mainActivity.getSavedData();
         final Recipe recipe = bundle.getParcelable("recipe");
 
-        //load the header
-        //loadHeader(recipe);
 
         /** view pager and tab setup **/
         final MaterialViewPager vPager = (MaterialViewPager) view.findViewById(R.id.recipeViewPager);
@@ -73,21 +67,6 @@ public class FragmentRecipe extends Fragment{
         vPager.getPagerTitleStrip().setViewPager(vPager.getViewPager());
 
         return view;
-    }
-
-    private void loadHeader(Recipe recipe) {
-        imageLoader.get(recipe.getImageUrl(), new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                Drawable d = new BitmapDrawable(getResources(), response.getBitmap());
-                header.setBackground(d);
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
     }
 
     private void setUpViewPager(ViewPager viewPager) {

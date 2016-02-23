@@ -3,6 +3,7 @@ package mamoonbraiga.MealMate.adapters;
 /**
  * Created by MamoonBraiga on 2016-02-04.
  */
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
 
+    // Define listener member variable
+    private static OnItemClickListener listener;
+    // Define the listener interface
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
 
     public RecyclerViewAdapter(List<Recipe> contents) {
         this.contents = contents;
@@ -82,6 +89,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.setTitle(recipe.getTitle());
     }
+    public void setOnItemClickListener( OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public static class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
         /**
          * This class is used to hold the references to UI compnents for each recipe

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,16 +18,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.adapters.RecyclerViewAdapter;
 import mamoonbraiga.MealMate.extras.API;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
+
 import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_DESCRIPTION;
 import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_IMAGE;
 import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
@@ -38,6 +44,7 @@ public class FragmentLikedRecipes extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private RecyclerViewAdapter adapter;
     private List<Recipe> likedRecipes = new ArrayList<>();
     private String token;
     private int id;
@@ -45,6 +52,10 @@ public class FragmentLikedRecipes extends Fragment {
     private String getURL;
     private JSONArray likedRecipesJSONArray;
     private RequestQueue requestQueue;
+    private Bundle bundle;
+    public static int BUNDLE_ID=1;
+
+
 
 
     @Override
@@ -54,7 +65,7 @@ public class FragmentLikedRecipes extends Fragment {
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getContext());
         token = (mSharedPreference.getString("token", null));
         id = (mSharedPreference.getInt("id", 0));
-
+        bundle = new Bundle();
         //recycle view setup
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
@@ -80,9 +91,23 @@ public class FragmentLikedRecipes extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 addLikedRecipes(response);
-                mAdapter = new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(likedRecipes), 2);
+                adapter = new RecyclerViewAdapter(likedRecipes);
+                mAdapter = new RecyclerViewMaterialAdapter(adapter, 2);
+                adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View itemView, int position) {
+                        bundle.putParcelable("recipe", likedRecipes.get(position));
+                        Fragment fragmentRecipe = new FragmentRecipe();
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
+                        ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
+                    }
+                });
                 MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                 mRecyclerView.setAdapter(mAdapter);
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.saveData(BUNDLE_ID, bundle);
+
             }
         }, new Response.ErrorListener() {
             @Override
