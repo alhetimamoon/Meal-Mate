@@ -4,6 +4,9 @@ package mamoonbraiga.MealMate.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,13 +27,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
 /**
@@ -39,6 +47,7 @@ public class FragmentAddRecipe extends Fragment{
 
     static final int RESULT_OK = -1;
     private CollapsingToolbarLayout collapsingToolbar;
+    private RequestQueue requestQueue;
     private Toolbar toolbar;
     private ImageButton addIngredientField;
     private ImageButton addInstructionButton;
@@ -191,6 +200,8 @@ public class FragmentAddRecipe extends Fragment{
         }
     }
 
+
+
     private void createJSONObject(List<String> instructionsText, List<String> ingredientsText) {
 
         JSONObject jsonObject = new JSONObject();
@@ -219,13 +230,28 @@ public class FragmentAddRecipe extends Fragment{
         mainHashMap.put("instructions", instructionsJSON);
         mainHashMap.put("name", recipeName.getText().toString());
         mainHashMap.put("description", recipeDescription.getText().toString());
-        mainHashMap.put("serving-size", servingSize.getText().toString());
+        mainHashMap.put("serving_size", servingSize.getText().toString());
         mainHashMap.put("calories", calories.getText().toString());
         mainHashMap.put("protein", protein.getText().toString());
         mainHashMap.put("carbs", carbs.getText().toString());
         mainHashMap.put("fat", fat.getText().toString());
         jsonObject = new JSONObject(mainHashMap);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Bitmap imageBitmap = ((BitmapDrawable) header.getDrawable()).getBitmap();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        Log.d("this is the image", encodedImage);
+        try {
+            jsonObject.put("image", encodedImage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.d("this is our JSON Object", jsonObject.toString());
+
+    }
+
+    private void sendJsonRequest(){
+        requestQueue = VolleySingleton.getsInstance().getmRequestQueue();
 
     }
 
@@ -289,4 +315,27 @@ public class FragmentAddRecipe extends Fragment{
         super.onDestroy();
         toolbar.setVisibility(View.VISIBLE);
     }
+
+    private class UploadImage extends AsyncTask<String, String, String> {
+
+        String imageName;
+        Bitmap image;
+
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        public UploadImage(String name, Bitmap image) {
+            this.image = image;
+            this.imageName = name;
+
+        }
+    }
+
 }

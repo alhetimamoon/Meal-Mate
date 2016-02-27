@@ -3,6 +3,8 @@
     package="mamoonbraiga.poodle_v3" >
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+
     <application
         android:allowBackup="true"
         android:name="mamoonbraiga.MealMate.extras.MyApplication"
@@ -27,5 +29,9 @@
         </activity>
 
     </application>
+
+    <service
+        android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+        android:enabled="true" />
 
 </manifest>
