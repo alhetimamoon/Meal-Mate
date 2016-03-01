@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -60,6 +59,7 @@ public class FragmentAddRecipe extends Fragment{
     private List<EditText> ingredients = new ArrayList<>();
     private Button upload_recipe;
     private EditText recipeName, recipeDescription, servingSize, calories, protein, carbs, fat;
+    private TextView uploadImageText;
 
 
     @Override
@@ -74,6 +74,7 @@ public class FragmentAddRecipe extends Fragment{
     }
 
     private void setUpClickListeners() {
+
         addIngredientField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +126,7 @@ public class FragmentAddRecipe extends Fragment{
 
     private void initializeFields(View view) {
 
+        uploadImageText = (TextView) view.findViewById(R.id.uploadText);
         addIngredientField = (ImageButton) view.findViewById(R.id.add_ingredient_button);
         addInstructionButton = (ImageButton) view.findViewById(R.id.add_instruction_button);
         ingredientsLayout = (LinearLayout) view.findViewById(R.id.ingredient_layout);
@@ -275,8 +277,11 @@ public class FragmentAddRecipe extends Fragment{
 
     public void onActivityResult(int regCode, int resultCode, Intent data){
         if (resultCode == RESULT_OK){
-            if (regCode == 1)
+            if (regCode == 1) {
                 header.setImageURI(data.getData());
+                uploadImageText.setVisibility(View.GONE);
+
+            }
         }
     }
 
@@ -308,34 +313,13 @@ public class FragmentAddRecipe extends Fragment{
     @Override
     public void onPause(){
         super.onPause();
+        toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
 
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
         toolbar.setVisibility(View.VISIBLE);
-    }
-
-    private class UploadImage extends AsyncTask<String, String, String> {
-
-        String imageName;
-        Bitmap image;
-
-        @Override
-        protected String doInBackground(String... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
-
-        public UploadImage(String name, Bitmap image) {
-            this.image = image;
-            this.imageName = name;
-
-        }
     }
 
 }
