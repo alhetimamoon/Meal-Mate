@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private void login(){
-        Log.d(Tag, "Signup");
+        Log.d(Tag, "Login");
 
         if (!validate()) {
             onLoginFailed();

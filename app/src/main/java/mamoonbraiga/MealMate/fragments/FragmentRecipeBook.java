@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.baoyz.widget.PullRefreshLayout;
 import com.melnykov.fab.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -29,7 +30,16 @@ import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
-import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.*;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_CALORIES;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_CARB;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_DESCRIPTION;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_FAT;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_ID;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_IMAGE;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_INGREDIENTS;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_INSTRUCTIONS;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_PROTEIN;
+import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
 /**
  * Created by MamoonBraiga on 2015-10-16.
  */
@@ -40,6 +50,7 @@ public class FragmentRecipeBook extends Fragment{
     FloatingActionButton add_recipe_button;
     private RecyclerView reList;
     public static int ID=1;
+    private PullRefreshLayout refreshLayout;
     Bundle bundle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +59,7 @@ public class FragmentRecipeBook extends Fragment{
         //inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_book, container, false);
         add_recipe_button = (FloatingActionButton) view.findViewById(R.id.add_recipe_button);
+        refreshLayout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         reList = (RecyclerView) view.findViewById(R.id.listRecipes);
         reList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -66,6 +78,13 @@ public class FragmentRecipeBook extends Fragment{
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
                 ft.replace(R.id.flContent, fragmentNewRecipe).addToBackStack("recipe card").commit();
+            }
+        });
+
+        refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                sendJsonRequest();
             }
         });
         return view;
@@ -111,6 +130,8 @@ public class FragmentRecipeBook extends Fragment{
 
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.saveData(ID, bundle);
+        refreshLayout.setRefreshing(false);
+
     }
     private void sendJsonRequest() {
         final StringRequest request = new StringRequest(Request.Method.GET, API.recipes_api , new Response.Listener<String>() {
@@ -121,7 +142,6 @@ public class FragmentRecipeBook extends Fragment{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(getActivity(), "ERROR "+error.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(request);

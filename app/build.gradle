@@ -48,5 +48,10 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile files('/Users/MamoonBraiga/AndroidStudioProjects/Poodle-V3/libs/mpandroidchartlibrary-2-1-5.jar')
+    compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
+    compile 'com.pnikosis:materialish-progress:1.7'
+
+
+
 }
 

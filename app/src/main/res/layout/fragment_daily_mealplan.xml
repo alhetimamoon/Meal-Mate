@@ -1,0 +1,82 @@
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/scroll"
+    android1:layout_height="match_parent"
+    android1:layout_width="match_parent"
+    android:clipToPadding="false"
+    android:background="@color/grey"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/tools"
+    xmlns:android1="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="500dp"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:textColor="@color/grey"
+        android:text="Breakfast"
+        android:textStyle="bold"
+        />
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/breakfast_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:textColor="@color/grey"
+        android:text="Lunch"
+        android:textStyle="bold"
+        />
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lunch_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:textColor="@color/grey"
+        android:text="Dinner"
+        android:textStyle="bold"
+        />
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dinner_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:textColor="@color/grey"
+        android:text="Snacks"
+        android:textStyle="bold"
+        />
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/snacks_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="50dp"
+        />
+
+</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>

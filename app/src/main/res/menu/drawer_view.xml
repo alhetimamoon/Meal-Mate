@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single" android:id="@+id/first_group">
         <item
             android:id="@+id/nav_first_fragment"
             android:icon="@drawable/ic_action"
@@ -21,5 +21,16 @@
             android:id="@+id/nav_fifth_fragment"
             android:icon="@drawable/add_recipe"
             android:title="Add recipe" />
+        <item
+            android:id="@+id/nav_sixth_fragment"
+            android:icon="@drawable/recipe"
+            android:title="Meal Plan" />
+
     </group>
+    <group android:id="@+id/second_group" android:checkableBehavior="single">
+        <item
+        android:id="@+id/sign_out"
+        android:title="Sign Out" />
+
+        </group>
 </menu>

@@ -19,6 +19,7 @@ import android.view.WindowManager;
 
 import mamoonbraiga.MealMate.fragments.FragmentAddRecipe;
 import mamoonbraiga.MealMate.fragments.FragmentCalculator;
+import mamoonbraiga.MealMate.fragments.FragmentMealPlan;
 import mamoonbraiga.MealMate.fragments.FragmentProfile;
 import mamoonbraiga.MealMate.fragments.FragmentRecipeBook;
 import mamoonbraiga.MealMate.fragments.FragmentStats;
@@ -112,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_fifth_fragment:
                 fragmentClass = FragmentAddRecipe.class;
                 break;
+            case R.id.nav_sixth_fragment:
+                fragmentClass = FragmentMealPlan.class;
+                break;
             default:
                 fragmentClass = FragmentRecipeBook.class;
         }
@@ -181,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
     public void setActionBarTitle(String title) {
         toolbar.setTitle(title);
     }
+
 
 
 }

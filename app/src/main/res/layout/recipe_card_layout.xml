@@ -6,6 +6,7 @@
     android:focusable="true"
     android:layout_margin="8dp"
     android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:background="?android:attr/selectableItemBackground"
     >
 
@@ -17,6 +18,7 @@
             android:id="@+id/recipeThumbnail"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:transitionName="recipe"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
             android:src="@drawable/pasta" />
