@@ -35,13 +35,13 @@
 
 
         <TextView
-            android:id="@+id/recipeUser"
+            android:id="@+id/serving_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recipeTitle"
             android:maxLines="3"
             android:padding="8dp"
-            android:text="Created by Mamoon Braiga"
+            android:text=""
             android:textColor="@color/grey"
             android:textStyle="italic"
             android:textSize="10dp" />

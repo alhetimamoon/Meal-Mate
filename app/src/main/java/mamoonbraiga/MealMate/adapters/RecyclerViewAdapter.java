@@ -37,6 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onItemClick(View itemView, int position);
     }
 
+    public void setOnItemClickListener( OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+
     public RecyclerViewAdapter(List<Recipe> contents) {
         this.contents = contents;
 
@@ -88,9 +93,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.setTitle(recipe.getTitle());
-    }
-    public void setOnItemClickListener( OnItemClickListener listener) {
-        this.listener = listener;
+        holder.setServing_size(recipe.getServing_size());
     }
 
     public static class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
@@ -100,6 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
          */
         private ImageView image;
         private TextView title;
+        private TextView serving_size;
         private TextView description;
         private String mItem;
 
@@ -107,12 +111,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(v);
             title = (TextView) v.findViewById(R.id.recipeTitle);
             description = (TextView) v.findViewById(R.id.recipeDescription);
+            serving_size = (TextView) v.findViewById(R.id.serving_size);
             image = (ImageView) v.findViewById(R.id.recipeThumbnail);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Triggers click upwards to the adapter on click
+                    if (listener != null)
+                        listener.onItemClick(itemView, getLayoutPosition());
+                }
+            });
+
 
         }
         public void setTitle(String titleString){
             this.title.setText(titleString);
         }
+        public void setServing_size(double serving_size){
+            this.serving_size.setText(String.valueOf(serving_size) + " servings");
+        }
+
 
     }
 }

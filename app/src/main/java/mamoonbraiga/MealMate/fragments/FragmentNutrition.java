@@ -1,13 +1,12 @@
 package mamoonbraiga.MealMate.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.poodle_v3.R;
 
@@ -29,9 +28,10 @@ public class FragmentNutrition extends Fragment {
         carb = (TextView) view.findViewById(R.id.carb);
         fat = (TextView) view.findViewById(R.id.fat);
 
-        MainActivity mainActivity = (MainActivity) getActivity();
-        Bundle bundle = mainActivity.getSavedData();
-        Recipe recipe = bundle.getParcelable("recipe");
+        Bundle bundle = getArguments();
+        int id = bundle.getInt("id");
+
+        Recipe recipe = bundle.getParcelable(String.valueOf(id));
 
         calories.setText("  CALORIES:: " + Integer.toString(recipe.getCalories()));
         protein.setText("  PROTEIN: " + Integer.toString(recipe.getProtein()) + "g");

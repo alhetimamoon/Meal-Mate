@@ -1,8 +1,6 @@
 package mamoonbraiga.MealMate.fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -25,7 +23,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.extras.API;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
@@ -59,14 +56,11 @@ public class FragmentDescription extends Fragment {
         View view = inflater.inflate(R.layout.fragment_description, container, false);
 
         //get the saved data from main activity
-        MainActivity mainActivity = (MainActivity) getActivity();
-        Bundle bundle = mainActivity.getSavedData();
-        Recipe recipe = bundle.getParcelable("recipe");
+        Bundle bundle = getArguments();
+        int savedID = bundle.getInt("id");
+        Recipe recipe = bundle.getParcelable(String.valueOf(savedID));
 
-        final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getContext());
-        token = (mSharedPreference.getString("token", null));
-        id = (mSharedPreference.getInt("id", 0));
-        recipe_id = recipe.getId();
+        recipe_id = savedID;
 
 
         description = (TextView) view.findViewById(R.id.description);

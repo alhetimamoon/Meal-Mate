@@ -35,9 +35,10 @@ public class FragmentIngredients extends Fragment {
         ingredients_title = (TextView) view.findViewById(R.id.ingredients_title);
 
         MainActivity mainActivity = (MainActivity) getActivity();
-        Bundle bundle = mainActivity.getSavedData();
+        Bundle bundle = getArguments();
+        int id = bundle.getInt("id");
 
-        Recipe recipe = bundle.getParcelable("recipe");
+        Recipe recipe = bundle.getParcelable(String.valueOf(id));
 
 
         String ingredient;

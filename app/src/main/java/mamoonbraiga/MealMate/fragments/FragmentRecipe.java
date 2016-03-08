@@ -7,19 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
@@ -27,10 +25,10 @@ import mamoonbraiga.poodle_v3.R;
 
 public class FragmentRecipe extends Fragment{
 
-    private ImageView header;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
-    private ImageLoader imageLoader=volleySingleton.getImageLoader();
     private Bundle bundle;
+    private int id;
+    private Recipe recipe = new Recipe();
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -38,10 +36,13 @@ public class FragmentRecipe extends Fragment{
 
 
         final View view = inflater.inflate(R.layout.fragment_recipe, container, false);
-        MainActivity mainActivity = (MainActivity) getActivity();
-        bundle = mainActivity.getSavedData();
-        final Recipe recipe = bundle.getParcelable("recipe");
+        bundle = getArguments();
+        id = bundle.getInt("id");
+        recipe = bundle.getParcelable(String.valueOf(id));
 
+        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(recipe.getTitle());
+        toolbar.setVisibility(View.VISIBLE);
 
         /** view pager and tab setup **/
         final MaterialViewPager vPager = (MaterialViewPager) view.findViewById(R.id.recipeViewPager);
@@ -72,9 +73,33 @@ public class FragmentRecipe extends Fragment{
     private void setUpViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFrag(new FragmentDescription(), "Description");
-        adapter.addFrag(new FragmentIngredients(), "Ingredients");
-        adapter.addFrag(new FragmentNutrition(), "Nutrition");
+
+
+        //setup description bundle and tab
+        Fragment description_fragment = new FragmentDescription();
+        Bundle descriptionBundle = new Bundle();
+        descriptionBundle.putInt("id", id);
+        descriptionBundle.putParcelable(String.valueOf(id), recipe);
+        description_fragment.setArguments(descriptionBundle);
+        adapter.addFrag(description_fragment, "Description");
+
+        //setup ingredients tab and bundle
+        Fragment ingredients_fragment = new FragmentIngredients();
+        Bundle ingredientsBundle = new Bundle();
+        ingredientsBundle.putInt("id", id);
+        ingredientsBundle.putParcelable(String.valueOf(id), recipe);
+        ingredients_fragment.setArguments(ingredientsBundle);
+        adapter.addFrag(ingredients_fragment, "Ingredients");
+
+
+        //setup nutrition tab and bundle
+        Fragment nutrition_fragment = new FragmentNutrition();
+        Bundle nutritionBundle = new Bundle();
+        nutritionBundle.putInt("id", id);
+        nutritionBundle.putParcelable(String.valueOf(id), recipe);
+        nutrition_fragment.setArguments(nutritionBundle);
+        adapter.addFrag(nutrition_fragment, "Nutrition");
+
         viewPager.setAdapter(adapter);
 
     }

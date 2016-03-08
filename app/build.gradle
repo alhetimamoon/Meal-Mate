@@ -22,6 +22,12 @@ android {
 
 }
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -50,7 +56,7 @@ dependencies {
     compile files('/Users/MamoonBraiga/AndroidStudioProjects/Poodle-V3/libs/mpandroidchartlibrary-2-1-5.jar')
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
     compile 'com.pnikosis:materialish-progress:1.7'
-
+    compile 'com.github.ppamorim:cult:0.1.5'
 
 
 }

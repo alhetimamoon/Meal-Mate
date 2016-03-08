@@ -22,6 +22,7 @@ public class Recipe implements Parcelable{
     protected JSONArray instructions;
     protected JSONArray ingredients;
     protected boolean liked;
+    protected double serving_size;
 
     protected Recipe(Parcel in) {
         id = in.readInt();
@@ -32,6 +33,7 @@ public class Recipe implements Parcelable{
         protein = in.readInt();
         carbs = in.readInt();
         fat = in.readInt();
+        serving_size = in.readFloat();
     }
     public Recipe(){
     }
@@ -144,6 +146,14 @@ public class Recipe implements Parcelable{
         this.liked = liked;
     }
 
+    public double getServing_size() {
+        return serving_size;
+    }
+
+    public void setServing_size(double serving_size) {
+        this.serving_size = serving_size;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -159,5 +169,6 @@ public class Recipe implements Parcelable{
         dest.writeInt(protein);
         dest.writeInt(carbs);
         dest.writeInt(fat);
+        dest.writeDouble(serving_size);
     }
 }

@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -93,16 +93,6 @@ public class FragmentLikedRecipes extends Fragment {
                 addLikedRecipes(response);
                 adapter = new RecyclerViewAdapter(likedRecipes);
                 mAdapter = new RecyclerViewMaterialAdapter(adapter, 2);
-                adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View itemView, int position) {
-                        bundle.putParcelable("recipe", likedRecipes.get(position));
-                        Fragment fragmentRecipe = new FragmentRecipe();
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
-                        ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
-                    }
-                });
                 MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                 mRecyclerView.setAdapter(mAdapter);
                 MainActivity mainActivity = (MainActivity) getActivity();

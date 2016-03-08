@@ -2,6 +2,7 @@ package mamoonbraiga.MealMate.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.adapters.RecyclerViewAdapter;
+import mamoonbraiga.MealMate.extras.Meal;
 import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.poodle_v3.R;
 
@@ -33,21 +36,46 @@ public class FragmentMealPlanDaily extends Fragment {
     private RecyclerViewAdapter lunchAdapter;
     private RecyclerViewAdapter dinnerAdapter;
     private RecyclerViewAdapter snackAdapter;
+    Bundle bundle;
+    List<Meal> meals = new ArrayList<>();
 
-
-    public FragmentMealPlanDaily(){
-
-    }
-    public FragmentMealPlanDaily(List<Recipe> breakfastRecipes, List<Recipe> lunchRecipes,
-                                 List<Recipe> dinnerRecipes, List<Recipe>snackRecipes){
-        this.breakfastRecipes = breakfastRecipes;
-        this.lunchRecipes = lunchRecipes;
-        this.dinnerRecipes = dinnerRecipes;
-        this.snackRecipes = snackRecipes;
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
         View view = inflater.inflate(R.layout.fragment_daily_mealplan, container, false);
+        final MainActivity mainActivity = (MainActivity) getActivity();
+
+        breakfastRecipes = new ArrayList<>();
+        lunchRecipes = new ArrayList<>();
+        dinnerRecipes = new ArrayList<>();
+        snackRecipes = new ArrayList<>();
+        meals = new ArrayList<>();
+        bundle = new Bundle();
+
+        String day = getArguments().getString("day");
+
+        this.meals = getArguments().getParcelableArrayList(day);
+
+
+        for (Meal meal:meals){
+            switch (meal.getMeal_time()){
+                case "breakfast":
+                    breakfastRecipes.add(meal.getRecipe());
+                    break;
+
+                case "lunch":
+                    lunchRecipes.add(meal.getRecipe());
+                    break;
+
+                case "diner":
+                    dinnerRecipes.add(meal.getRecipe());
+                    break;
+
+                case "snacks":
+                    snackRecipes.add(meal.getRecipe());
+                    break;
+            }
+        }
 
         breakfastRecyclerVew = (RecyclerView) view.findViewById(R.id.breakfast_recyclerView);
         breakfastRecyclerVew.setLayoutManager(new LinearLayoutManager(getContext(),
@@ -65,34 +93,55 @@ public class FragmentMealPlanDaily extends Fragment {
         snacksRecyclerVew.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
 
-        for (int i=0; i<10; i++){
-            Recipe recipe = new Recipe();
-            recipe.setTitle("Three Cheese Pasta");
-            recipe.setDescription("This is an amazing recipe");
-            breakfastRecipes.add(recipe);
-            lunchRecipes.add(recipe);
-            dinnerRecipes.add(recipe);
-            snackRecipes.add(recipe);
-        }
-
+        //breakfast view
         breakfastAdapter = new RecyclerViewAdapter(breakfastRecipes);
         breakfastRecyclerVew.setAdapter(breakfastAdapter);
+        breakfastAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                bundle = new Bundle();
+                bundle.putInt("id", breakfastRecipes.get(position).getId());
+                bundle.putParcelable(String.valueOf(breakfastRecipes.get(position).getId()), breakfastRecipes.get(position));
+                Fragment fragmentRecipe = new FragmentRecipe();
+                fragmentRecipe.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
 
+            }
+        });
+
+        mainActivity.saveData(1, bundle);
+
+        //lunch view
         lunchAdapter = new RecyclerViewAdapter(lunchRecipes);
         lunchRecyclerVew.setAdapter(lunchAdapter);
 
+
+        //dinner view
         dinnerAdapter = new RecyclerViewAdapter(dinnerRecipes);
         dinnerRecyclerVew.setAdapter(dinnerAdapter);
 
+
+        //snacks view
         snackAdapter = new RecyclerViewAdapter(snackRecipes);
         snacksRecyclerVew.setAdapter(snackAdapter);
 
 
-
-
-
-
-
         return view;
     }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
 }
