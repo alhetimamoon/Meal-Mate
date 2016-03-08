@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.adapters.RecyclerViewAdapter;
 import mamoonbraiga.MealMate.extras.Meal;
 import mamoonbraiga.MealMate.extras.Recipe;
@@ -43,7 +42,6 @@ public class FragmentMealPlanDaily extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.fragment_daily_mealplan, container, false);
-        final MainActivity mainActivity = (MainActivity) getActivity();
 
         breakfastRecipes = new ArrayList<>();
         lunchRecipes = new ArrayList<>();
@@ -100,7 +98,8 @@ public class FragmentMealPlanDaily extends Fragment {
             @Override
             public void onItemClick(View itemView, int position) {
                 bundle = new Bundle();
-                bundle.putInt("id", breakfastRecipes.get(position).getId());
+                int id = breakfastRecipes.get(position).getId();
+                bundle.putInt("id", id);
                 bundle.putParcelable(String.valueOf(breakfastRecipes.get(position).getId()), breakfastRecipes.get(position));
                 Fragment fragmentRecipe = new FragmentRecipe();
                 fragmentRecipe.setArguments(bundle);
@@ -111,11 +110,24 @@ public class FragmentMealPlanDaily extends Fragment {
             }
         });
 
-        mainActivity.saveData(1, bundle);
-
         //lunch view
         lunchAdapter = new RecyclerViewAdapter(lunchRecipes);
         lunchRecyclerVew.setAdapter(lunchAdapter);
+        lunchAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                bundle = new Bundle();
+                int id = lunchRecipes.get(position).getId();
+                bundle.putInt("id", id);
+                bundle.putParcelable(String.valueOf(id), lunchRecipes.get(position));
+                Fragment fragmentRecipe = new FragmentRecipe();
+                fragmentRecipe.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
+
+            }
+        });
 
 
         //dinner view
@@ -129,18 +141,6 @@ public class FragmentMealPlanDaily extends Fragment {
 
 
         return view;
-    }
-
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
-
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
 

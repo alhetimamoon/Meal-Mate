@@ -21,7 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.MealMate.adapters.AdapterRecipeBook;
@@ -45,7 +44,7 @@ import static mamoonbraiga.MealMate.extras.Keys.RecipeKeys.KEY_TITLE;
  */
 public class FragmentRecipeBook extends Fragment{
     private RequestQueue requestQueue;
-    private List<Recipe> recipes = new ArrayList<>();
+    private ArrayList<Recipe> recipes = new ArrayList<>();
     private AdapterRecipeBook adapterRecipeBook;
     FloatingActionButton add_recipe_button;
     private RecyclerView reList;
@@ -120,16 +119,17 @@ public class FragmentRecipeBook extends Fragment{
         adapterRecipeBook.setOnItemClickListener(new AdapterRecipeBook.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                bundle.putParcelable("recipe", recipes.get(position));
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(String.valueOf(recipes.get(position).getId()), recipes.get(position));
+                bundle.putInt("id", recipes.get(position).getId());
                 Fragment fragmentRecipe = new FragmentRecipe();
+                fragmentRecipe.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
                 ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
             }
         });
 
-        MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.saveData(ID, bundle);
         refreshLayout.setRefreshing(false);
 
     }
