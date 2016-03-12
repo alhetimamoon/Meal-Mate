@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,6 +53,7 @@ public class FragmentYourRecipes extends Fragment {
     private String getURL;
     private JSONArray likedRecipesJSONArray;
     private RequestQueue requestQueue;
+    private ProgressBar progressBar;
 
     public static FragmentLikedRecipes newInstance() {
         return new FragmentLikedRecipes();
@@ -62,7 +64,7 @@ public class FragmentYourRecipes extends Fragment {
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getContext());
         token = (mSharedPreference.getString("token", null));
         id = (mSharedPreference.getInt("id", 0));
-
+        progressBar = (ProgressBar) view.findViewById(R.id.loading_recipes);
         //recycle view setup
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
@@ -114,6 +116,7 @@ public class FragmentYourRecipes extends Fragment {
             }
             likedRecipes.add(recipe);
         }
+
     }
 
     @Override
@@ -122,6 +125,7 @@ public class FragmentYourRecipes extends Fragment {
         mScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
 
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
+        progressBar.setVisibility(ProgressBar.GONE);
     }
 
     private void createURL() {

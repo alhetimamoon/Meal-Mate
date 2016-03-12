@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_newstand"
-
     android:id="@+id/recipeViewPager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,7 @@
     app:viewpager_headerHeight="200dp"
     app:viewpager_headerAlpha="1.0"
     app:viewpager_hideLogoWithFade="true"
-    app:viewpager_hideToolbarAndTitle="false"
+    app:viewpager_hideToolbarAndTitle="true"
     app:viewpager_enableToolbarElevation="true"
     app:viewpager_parallaxHeaderFactor="1.5"
     app:viewpager_headerAdditionalHeight="20dp"

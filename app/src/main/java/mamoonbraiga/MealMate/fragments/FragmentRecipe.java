@@ -43,7 +43,6 @@ public class FragmentRecipe extends Fragment{
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(recipe.getTitle());
         toolbar.setVisibility(View.VISIBLE);
-
         /** view pager and tab setup **/
         final MaterialViewPager vPager = (MaterialViewPager) view.findViewById(R.id.recipeViewPager);
         vPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {

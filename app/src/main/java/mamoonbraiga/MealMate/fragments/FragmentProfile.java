@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import com.github.florent37.materialviewpager.header.HeaderDesign;
 import java.util.ArrayList;
 import java.util.List;
 
-import mamoonbraiga.MealMate.activities.MainActivity;
 import mamoonbraiga.poodle_v3.R;
 
 /**
@@ -29,8 +29,10 @@ public class FragmentProfile extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final Drawable header1 = getResources().getDrawable(R.drawable.header_pasta);
         final Drawable header2 = getResources().getDrawable(R.drawable.pizza_header);
-        MainActivity mainActivity = (MainActivity) getActivity();
+
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle("Profile");
 
         vPager = (MaterialViewPager) view.findViewById(R.id.materialViewPager);
         vPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {

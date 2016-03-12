@@ -11,7 +11,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -107,10 +106,7 @@ public class FragmentAddRecipe extends Fragment{
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment trending = new FragmentRecipeBook();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.flContent, trending).addToBackStack("go back to trending").commit();
+                getActivity().onBackPressed();
             }
         });
 

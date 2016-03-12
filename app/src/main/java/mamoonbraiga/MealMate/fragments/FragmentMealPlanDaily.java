@@ -133,11 +133,41 @@ public class FragmentMealPlanDaily extends Fragment {
         //dinner view
         dinnerAdapter = new RecyclerViewAdapter(dinnerRecipes);
         dinnerRecyclerVew.setAdapter(dinnerAdapter);
+        dinnerAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                bundle = new Bundle();
+                int id = dinnerRecipes.get(position).getId();
+                bundle.putInt("id", id);
+                bundle.putParcelable(String.valueOf(id), dinnerRecipes.get(position));
+                Fragment fragmentRecipe = new FragmentRecipe();
+                fragmentRecipe.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
+
+            }
+        });
 
 
         //snacks view
         snackAdapter = new RecyclerViewAdapter(snackRecipes);
         snacksRecyclerVew.setAdapter(snackAdapter);
+        snackAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                bundle = new Bundle();
+                int id = snackRecipes.get(position).getId();
+                bundle.putInt("id", id);
+                bundle.putParcelable(String.valueOf(id), snackRecipes.get(position));
+                Fragment fragmentRecipe = new FragmentRecipe();
+                fragmentRecipe.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(ft.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
+
+            }
+        });
 
 
         return view;

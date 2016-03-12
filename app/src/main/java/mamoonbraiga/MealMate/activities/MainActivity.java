@@ -192,6 +192,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(title);
     }
 
+    public void hideActionBarToggle(boolean hidden){
+        if (hidden)
+            drawerToggle.setDrawerIndicatorEnabled(false);
+        else
+            drawerToggle.setDrawerIndicatorEnabled(true);
+
+    }
+
 
 
 }

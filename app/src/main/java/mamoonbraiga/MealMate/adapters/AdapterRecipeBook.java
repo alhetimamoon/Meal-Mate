@@ -77,6 +77,9 @@ public class AdapterRecipeBook extends RecyclerView.Adapter<AdapterRecipeBook.Vi
             });
 
         }
+        else{
+            holder.image.setImageDrawable(null);
+        }
 
         holder.setTitle(recipe.getTitle());
         holder.setDescription(recipe.getDescription());

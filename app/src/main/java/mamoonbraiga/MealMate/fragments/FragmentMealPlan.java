@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +54,8 @@ public class FragmentMealPlan extends Fragment {
     private final String url = "http://mealmate.co/api/get_mealplan?id=2";
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ProgressBar loadingProgress;
+    private ImageButton backButton;
     JSONArray mealsJSONArray;
     JSONArray recipesArray;
     List<Meal> monday_meals = new ArrayList<>();
@@ -69,7 +73,8 @@ public class FragmentMealPlan extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.fragment_mealplan, container, false);
-
+        loadingProgress = (ProgressBar) view.findViewById(R.id.loading_mealplan);
+        backButton = (ImageButton) view.findViewById(R.id.toolbarButton);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.meal_plan_toolbar);
         toolbar.setTitle("");
         toolbar.inflateMenu(R.menu.drawer_view);
@@ -87,6 +92,13 @@ public class FragmentMealPlan extends Fragment {
 
         hideToolbar();
         sendJSONRequest();
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         return view;
 
@@ -259,8 +271,9 @@ public class FragmentMealPlan extends Fragment {
 
 
         //set the view pager adapter
-        viewPager.setOffscreenPageLimit(7);
+        //viewPager.setOffscreenPageLimit(7);
         viewPager.setAdapter(adapter);
+        loadingProgress.setVisibility(ProgressBar.GONE);
 
     }
 

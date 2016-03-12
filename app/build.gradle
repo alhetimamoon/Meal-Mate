@@ -57,6 +57,8 @@ dependencies {
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.github.ppamorim:cult:0.1.5'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
+
 
 
 }

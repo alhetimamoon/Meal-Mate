@@ -31,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ImageLoader imageLoader;
 
     // Define listener member variable
-    private static OnItemClickListener listener;
+    private OnItemClickListener listener;
     // Define the listener interface
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
@@ -89,14 +89,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 }
             });
-
+        }
+        else{
+            holder.image.setImageDrawable(null);
         }
 
         holder.setTitle(recipe.getTitle());
         holder.setServing_size(recipe.getServing_size());
     }
 
-    public static class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
+    public class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
         /**
          * This class is used to hold the references to UI compnents for each recipe
          * use this when connecting to the database using JSON

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,6 +52,7 @@ public class FragmentRecipeBook extends Fragment{
     public static int ID=1;
     private PullRefreshLayout refreshLayout;
     Bundle bundle;
+    private ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -58,6 +60,7 @@ public class FragmentRecipeBook extends Fragment{
         //inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_book, container, false);
         add_recipe_button = (FloatingActionButton) view.findViewById(R.id.add_recipe_button);
+        progressBar = (ProgressBar) view.findViewById(R.id.loading_recipes);
         refreshLayout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         reList = (RecyclerView) view.findViewById(R.id.listRecipes);
         reList.setHasFixedSize(true);
@@ -129,7 +132,7 @@ public class FragmentRecipeBook extends Fragment{
                 ft.replace(R.id.flContent, fragmentRecipe).addToBackStack("recipe card").commit();
             }
         });
-
+        progressBar.setVisibility(ProgressBar.GONE);
         refreshLayout.setRefreshing(false);
 
     }

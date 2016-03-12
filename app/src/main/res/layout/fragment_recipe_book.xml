@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+        android:id="@+id/loading_recipes"
+        android:layout_gravity="center"
+        android:progressBackgroundTint="@color/ColorPrimary"
+
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
+
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"

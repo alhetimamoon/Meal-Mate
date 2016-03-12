@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,6 +55,7 @@ public class FragmentLikedRecipes extends Fragment {
     private RequestQueue requestQueue;
     private Bundle bundle;
     public static int BUNDLE_ID=1;
+    private ProgressBar progressBar;
 
 
 
@@ -71,7 +73,7 @@ public class FragmentLikedRecipes extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-
+        progressBar = (ProgressBar) view.findViewById(R.id.loading_recipes);
         //prepare GET url
         createURL();
 
@@ -90,6 +92,7 @@ public class FragmentLikedRecipes extends Fragment {
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getURL, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
                 addLikedRecipes(response);
                 adapter = new RecyclerViewAdapter(likedRecipes);
                 mAdapter = new RecyclerViewMaterialAdapter(adapter, 2);
@@ -97,7 +100,7 @@ public class FragmentLikedRecipes extends Fragment {
                 mRecyclerView.setAdapter(mAdapter);
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.saveData(BUNDLE_ID, bundle);
-
+                progressBar.setVisibility(ProgressBar.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
