@@ -1,9 +1,5 @@
 package mamoonbraiga.MealMate.adapters;
 
-/**
- * Created by MamoonBraiga on 2016-02-04.
- */
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +16,17 @@ import mamoonbraiga.MealMate.extras.Recipe;
 import mamoonbraiga.MealMate.network.VolleySingleton;
 import mamoonbraiga.poodle_v3.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolderProfileRecipes> {
-
-    List<Recipe> contents;
-
-    static final int TYPE_HEADER = 0;
-    static final int TYPE_CELL = 1;
+/**
+ * Created by MamoonBraiga on 2016-03-14.
+ */
+public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<SearchResultsRecyclerViewAdapter.ViewHolderSearchResults> {
 
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
+    List<Recipe> contents;
+    static final int TYPE_HEADER = 0;
+    static final int TYPE_CELL = 1;
+
 
     // Define listener member variable
     private OnItemClickListener listener;
@@ -37,15 +35,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onItemClick(View itemView, int position);
     }
 
-    public void setOnItemClickListener( OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-
-    public RecyclerViewAdapter(List<Recipe> contents) {
+    public SearchResultsRecyclerViewAdapter(List<Recipe> contents) {
         this.contents = contents;
 
     }
+
     @Override
     public int getItemViewType(int position) {
         switch (position) {
@@ -56,23 +50,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return contents.size();
+    public void setOnItemClickListener( OnItemClickListener listener) {
+        this.listener = listener;
     }
 
+
     @Override
-    public ViewHolderProfileRecipes onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolderSearchResults onCreateViewHolder(ViewGroup parent, int viewType) {
 
         volleySingleton = VolleySingleton.getsInstance();
         imageLoader = volleySingleton.getImageLoader();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_layout_small, parent, false);
-        ViewHolderProfileRecipes viewHolder = new ViewHolderProfileRecipes(view);
-        return viewHolder;
-
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_result_card, parent, false);
+        ViewHolderSearchResults viewHolderSearchResults = new ViewHolderSearchResults(view);
+        return viewHolderSearchResults;
     }
+
     @Override
-    public void onBindViewHolder(final RecyclerViewAdapter.ViewHolderProfileRecipes holder, int position) {
+    public void onBindViewHolder(final ViewHolderSearchResults holder, int position) {
         Recipe recipe = contents.get(position);
         String imageUrl = recipe.getImageUrl();
 
@@ -94,28 +88,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else{
             holder.image.setImageDrawable(null);
         }
-
         holder.setTitle(recipe.getTitle());
-        holder.setServing_size(recipe.getServing_size());
+
     }
 
-    public class ViewHolderProfileRecipes extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemCount() {
+        return contents.size();
+    }
+
+    public class ViewHolderSearchResults extends RecyclerView.ViewHolder{
         /**
          * This class is used to hold the references to UI compnents for each recipe
          * use this when connecting to the database using JSON
          */
         private ImageView image;
         private TextView title;
-        private TextView serving_size;
-        private TextView description;
-        private String mItem;
 
-        public ViewHolderProfileRecipes(View v) {
+        public ViewHolderSearchResults(View v) {
             super(v);
-            title = (TextView) v.findViewById(R.id.recipeTitle);
-            description = (TextView) v.findViewById(R.id.recipeDescription);
-            serving_size = (TextView) v.findViewById(R.id.serving_size);
-            image = (ImageView) v.findViewById(R.id.recipeThumbnail);
+            title = (TextView) v.findViewById(R.id.search_result_card_title);
+            image = (ImageView) v.findViewById(R.id.search_result_card_image);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -125,15 +118,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
-
         }
         public void setTitle(String titleString){
             this.title.setText(titleString);
         }
-        public void setServing_size(double serving_size){
-            this.serving_size.setText(String.valueOf(serving_size) + " servings");
-        }
-
 
     }
 }

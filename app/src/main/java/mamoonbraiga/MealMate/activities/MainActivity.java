@@ -12,16 +12,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import mamoonbraiga.MealMate.extras.API;
 import mamoonbraiga.MealMate.fragments.FragmentAddRecipe;
 import mamoonbraiga.MealMate.fragments.FragmentCalculator;
 import mamoonbraiga.MealMate.fragments.FragmentMealPlan;
 import mamoonbraiga.MealMate.fragments.FragmentProfile;
 import mamoonbraiga.MealMate.fragments.FragmentRecipeBook;
+import mamoonbraiga.MealMate.fragments.FragmentSearchResults;
 import mamoonbraiga.MealMate.fragments.FragmentStats;
 import mamoonbraiga.poodle_v3.R;
 
@@ -31,17 +36,55 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private Bundle bundle;
+    private MaterialSearchView searchView;
+    private String search_url;
+
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        search_url = API.search_api;
         setContentView(R.layout.activity_main);
 
         //replace the default toolbar with our toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.toolbar_color));
         setSupportActionBar(toolbar);
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Fragment fragment = new FragmentSearchResults();
+                Bundle bundle = new Bundle();
+                bundle.putString("query", query);
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack("Sub fragment").commit();
+                toolbar.setTitle(query + " recipes");
+                //Do some magic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
 
         Window window = this.getWindow();
 
@@ -184,21 +227,20 @@ public class MainActivity extends AppCompatActivity {
         bundle = data;
     }
 
-    public Bundle getSavedData() {
-        return bundle;
-    }
-
     public void setActionBarTitle(String title) {
         toolbar.setTitle(title);
     }
 
-    public void hideActionBarToggle(boolean hidden){
-        if (hidden)
-            drawerToggle.setDrawerIndicatorEnabled(false);
-        else
-            drawerToggle.setDrawerIndicatorEnabled(true);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        return true;
     }
+
 
 
 

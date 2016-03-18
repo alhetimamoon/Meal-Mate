@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -272,6 +273,7 @@ public class FragmentAddRecipe extends Fragment{
     }
 
     public void onActivityResult(int regCode, int resultCode, Intent data){
+        hideToolbar();
         if (resultCode == RESULT_OK){
             if (regCode == 1) {
                 header.setImageURI(data.getData());
@@ -282,8 +284,8 @@ public class FragmentAddRecipe extends Fragment{
     }
 
     private void hideToolbar() {
-        toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.GONE);
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.GONE);
     }
 
     private void animateToolbarText(View view) {
@@ -309,13 +311,15 @@ public class FragmentAddRecipe extends Fragment{
     @Override
     public void onPause(){
         super.onPause();
-        toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.VISIBLE);
 
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        toolbar.setVisibility(View.VISIBLE);
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.VISIBLE);
     }
 
 }

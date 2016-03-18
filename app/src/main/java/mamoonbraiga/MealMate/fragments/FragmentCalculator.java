@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class FragmentCalculator extends Fragment{
     private LinearLayout mainContent;
     private LinearLayout stats_content;
     private TextView calories, carbs, protein, fat;
+    private ImageButton backButton;
 
 
 
@@ -50,6 +53,7 @@ public class FragmentCalculator extends Fragment{
         mainContent = (LinearLayout) view.findViewById(R.id.main_content_calc);
         stats_content = (LinearLayout) view.findViewById(R.id.stats_content);
         stats_content.setVisibility(LinearLayout.GONE);
+        backButton = (ImageButton) view.findViewById(R.id.toolbarButton);
 
         //gender spinner
         gender_spinner = (Spinner) view.findViewById(R.id.gender_spinner);
@@ -94,6 +98,12 @@ public class FragmentCalculator extends Fragment{
                 else
                     showErrorDialog();
 
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
         animateToolbarText(view);
@@ -237,8 +247,22 @@ public class FragmentCalculator extends Fragment{
 
     private void hideToolbar() {
 
-        toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.GONE);
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.VISIBLE);
+
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.VISIBLE);
     }
 
 

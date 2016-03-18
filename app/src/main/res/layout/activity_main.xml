@@ -13,10 +13,25 @@
         android:orientation="vertical">
 
         <!-- The ActionBar displayed at the top -->
-        <include
-            layout="@layout/toolbar"
+        <FrameLayout
+            android:id="@+id/toolbar_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/toolbar"
+                android:layout_height="51dp"
+                android:layout_width="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                android:background="@color/toolbar_color" />
+
+            <com.miguelcatalan.materialsearchview.MaterialSearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
         <!-- The main content view where fragments are loaded -->
         <FrameLayout
             android:id="@+id/flContent"
@@ -40,4 +55,6 @@
         app:itemIconTint="@color/grey"
         app:itemTextColor="@color/grey"
         app:menu="@menu/drawer_view" />
+
+
 </android.support.v4.widget.DrawerLayout>

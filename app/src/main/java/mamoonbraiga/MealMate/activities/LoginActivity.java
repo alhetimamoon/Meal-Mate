@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity{
             if (sharedPref.getString("isSignedOn", "").equals("yes")){
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
         setContentView(R.layout.activity_login);

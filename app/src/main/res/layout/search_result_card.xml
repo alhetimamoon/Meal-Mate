@@ -1,0 +1,44 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_result_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="20dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="?android:attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/recipe_description"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:layout_height="match_parent"
+                android:rowCount="1"
+                android:columnCount="2">
+
+                <ImageView
+                    android:id="@+id/search_result_card_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/header_pasta" />
+
+                <TextView
+                    android:id="@+id/search_result_card_title"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Chicken Salad"
+                    android:textColor="@color/ColorPrimary"/>
+
+                </GridLayout>
+            </LinearLayout>
+    </android.support.v7.widget.CardView>

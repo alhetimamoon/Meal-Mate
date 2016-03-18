@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -132,9 +133,8 @@ public class FragmentMealPlan extends Fragment {
     }
 
     private void hideToolbar() {
-        Toolbar toolbar;
-        toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.GONE);
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.GONE);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -333,18 +333,14 @@ public class FragmentMealPlan extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.VISIBLE);
 
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.VISIBLE);
-
-    }
-    @Override
-    public void onResume(){
-        super.onResume();
+        FrameLayout frameLayout = (FrameLayout) getActivity().findViewById(R.id.toolbar_container);
+        frameLayout.setVisibility(View.VISIBLE);
     }
 }
