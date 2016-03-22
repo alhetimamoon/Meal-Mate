@@ -28,6 +28,7 @@ import mamoonbraiga.MealMate.fragments.FragmentProfile;
 import mamoonbraiga.MealMate.fragments.FragmentRecipeBook;
 import mamoonbraiga.MealMate.fragments.FragmentSearchResults;
 import mamoonbraiga.MealMate.fragments.FragmentStats;
+import mamoonbraiga.MealMate.fragments.MealPlans;
 import mamoonbraiga.poodle_v3.R;
 
 public class MainActivity extends AppCompatActivity {

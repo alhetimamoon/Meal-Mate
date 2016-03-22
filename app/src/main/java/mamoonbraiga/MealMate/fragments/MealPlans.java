@@ -25,14 +25,12 @@ public class MealPlans extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.fragment_mealplans, container, false);
-        swipeStack = (SwipeStack) view.findViewById(R.id.swipeStack);
         List<String> mealplans = new ArrayList<>();
         mealplans.add("test");
         mealplans.add("test");
         mealplans.add("test");
         mealplans.add("test");
 
-        swipeStack.setAdapter(new SwipeStackAdapter(mealplans));
         this.layoutInflater = inflater;
 
         return view;

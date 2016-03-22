@@ -161,7 +161,7 @@ public class FragmentRecipeBook extends Fragment{
     @Override
     public void onResume(){
         super.onResume();
-        ((MainActivity) getActivity()).setActionBarTitle("Trending");
+        ((MainActivity) getActivity()).setActionBarTitle("Trending Recipes");
     }
 
 }

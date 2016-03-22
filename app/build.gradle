@@ -60,6 +60,7 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'link.fls:swipestack:0.3.0'
+    compile 'com.mutualmobile.android:cardstack:0.2'
 
 
 

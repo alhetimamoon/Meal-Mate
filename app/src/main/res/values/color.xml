@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ColorPrimary">#FF5722</color>
-    <color name="ColorPrimaryDark">#222B2F</color>
+    <color name="ColorPrimary">#FFC107</color>
+    <color name="ColorPrimaryDark">#D32F2F</color>
     <color name="ColorPrimaryLight">#FFCCBC</color>
     <color name="NavigationDrawerTextColor">#101010</color>
     <color name="grey">#757575</color>
@@ -9,6 +9,6 @@
     <color name="bkg_card">#8C9EFF</color>
     <color name="accent_color">#CCCCCC</color>
     <color name="iron">#CCCCCC</color>
-    <color name="toolbar_color">#2C3539</color>
+    <color name="toolbar_color">#F44336</color>
 
 </resources>
